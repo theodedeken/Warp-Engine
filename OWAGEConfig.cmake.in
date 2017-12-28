@@ -1,0 +1,9 @@
+# - Config file for the FooBar package
+# It defines the following variables
+#  FOOBAR_INCLUDE_DIRS - include directories for FooBar
+#  FOOBAR_LIBRARIES    - libraries to link against
+#  FOOBAR_EXECUTABLE   - the bar executable
+ 
+# Compute paths
+get_filename_component(OWAGE_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(OWAGE_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
