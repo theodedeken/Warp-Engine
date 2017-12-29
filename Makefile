@@ -1,5 +1,5 @@
 EMSDK =  C:/emsdk-portable-64bit/emscripten/1.37.26
-PROJECT =  OWAGE
+PROJECT =  Warp
 
 BUILDDIR = build
 INCDIR = src/include
