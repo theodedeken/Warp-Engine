@@ -15,7 +15,7 @@ CXX = $(EMSDK)/em++
 #OBJS = $(addprefix $(BUILDDIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard $(MAINDIR)/*.cpp))))
 #TESTOBJS = $(addprefix $(BUILDDIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard $(TESTDIR)/*.cpp))))
 
-CXXFLAGS += $(DIRS:%=-I/$(INCDIR)/%) -std=c++1y
+CXXFLAGS += $(DIRS:%=-I/$(INCDIR)/%) -std=c++1y --bind
 CXXFLAGSO = $(CXXFLAGS) -s WASM=1
 .PHONY:
 	clean
