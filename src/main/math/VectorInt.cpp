@@ -5,13 +5,12 @@ VectorInt::VectorInt(int size){
     _values = new int [size];
 }
 
-VectorInt::VectorInt(int size, int * values){
-    _size = size;
-    _values = values;
-}
-
 VectorInt::~VectorInt(){
     delete[] _values;
+}
+
+int VectorInt::getSize() const {
+    return _size;
 }
 
 int VectorInt::getValue(int index){
