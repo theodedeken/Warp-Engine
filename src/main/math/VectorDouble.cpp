@@ -1,29 +1,29 @@
-#include "VectorInt.hpp"
+#include "VectorDouble.hpp"
 
-VectorInt::VectorInt(int size){
+VectorDouble::VectorDouble(int size){
     _size = size;
-    _values = new int [size];
+    _values = new double [size];
 }
 
-VectorInt::~VectorInt(){
+VectorDouble::~VectorDouble(){
     delete[] _values;
 }
 
-int VectorInt::getSize() const {
+int VectorDouble::getSize() const {
     return _size;
 }
 
-int VectorInt::getValue(int index){
+double VectorDouble::getValue(int index){
     return _values[index];
 }
 
-void VectorInt::setValue(int index, int value){
+void VectorDouble::setValue(int index, double value){
     _values[index] = value;
 }
 
-VectorInt* VectorInt::plus(VectorInt* b){
+VectorDouble* VectorDouble::plus(VectorDouble* b){
     if (_size == b->getSize()){
-        VectorInt* res = new VectorInt(_size);
+        VectorDouble* res = new VectorDouble(_size);
         for (int i = 0; i < _size; i++){
             res->setValue(i, _values[i] + b->getValue(i));
         }
@@ -35,9 +35,9 @@ VectorInt* VectorInt::plus(VectorInt* b){
     }
 }
 
-VectorInt* VectorInt::minus(VectorInt* b){
+VectorDouble* VectorDouble::minus(VectorDouble* b){
     if (_size == b->getSize()){
-        VectorInt* res = new VectorInt(_size);
+        VectorDouble* res = new VectorDouble(_size);
         for (int i = 0; i < _size; i++){
             res->setValue(i, _values[i] - b->getValue(i));
         }
@@ -49,25 +49,25 @@ VectorInt* VectorInt::minus(VectorInt* b){
     }
 }
 
-VectorInt* VectorInt::mult(int a){
-    VectorInt* res = new VectorInt(_size);
+VectorDouble* VectorDouble::mult(double a){
+    VectorDouble* res = new VectorDouble(_size);
     for (int i = 0; i < _size; i++){
         res->setValue(i, _values[i]*a);
     }
     return res;
 }
 
-VectorInt* VectorInt::div(int a){
-    VectorInt* res = new VectorInt(_size);
+VectorDouble* VectorDouble::div(double a){
+    VectorDouble* res = new VectorDouble(_size);
     for (int i = 0; i < _size; i++){
         res->setValue(i, _values[i]/a);
     }
     return res;
 }
 
-int VectorInt::dot(VectorInt* b){
+double VectorDouble::dot(VectorDouble* b){
     if (_size == b->getSize()){
-        int res = 0;
+        double res = 0;
         for (int i = 0; i < _size; i++){
             res += _values[i] * b->getValue(i);
         }
@@ -78,4 +78,3 @@ int VectorInt::dot(VectorInt* b){
         return -1;
     }
 }
-
