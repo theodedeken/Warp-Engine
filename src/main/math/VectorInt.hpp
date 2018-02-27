@@ -1,3 +1,6 @@
+#ifndef WARP_MATH_VECTORINT_H_
+#define WARP_MATH_VECTORINT_H_
+
 #include <emscripten/bind.h>
 using namespace emscripten;
 
@@ -32,3 +35,5 @@ EMSCRIPTEN_BINDINGS(vector_int) {
     .function("dot", & VectorInt::dot, allow_raw_pointers())
     ;
 }
+
+#endif

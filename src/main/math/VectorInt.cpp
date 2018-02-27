@@ -1,4 +1,4 @@
-#include "../../include/math/VectorInt.hpp"
+#include "VectorInt.hpp"
 
 VectorInt::VectorInt(int size){
     _size = size;
