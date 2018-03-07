@@ -1,5 +1,5 @@
 import test from 'ava';
-import Module from './_Warp'
+import Module from '../_Warp'
 
 test('constructor', t => {
     var vector = new Module.VectorInt(3)

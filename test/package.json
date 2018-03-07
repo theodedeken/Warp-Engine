@@ -9,7 +9,8 @@
   },
   "ava": {
     "files" : [
-      "."
+      ".",
+      "math/"
     ]
   },
   "keywords": [
