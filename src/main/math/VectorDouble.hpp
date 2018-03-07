@@ -102,6 +102,5 @@ EMSCRIPTEN_BINDINGS(vector_double) {
     .function("div", &VectorDouble::div, allow_raw_pointers())
     .function("dot", &VectorDouble::dot, allow_raw_pointers())
     ;
-}
 
 #endif

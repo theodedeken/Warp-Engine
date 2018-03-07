@@ -4,6 +4,11 @@
 #include <emscripten/bind.h>
 using namespace emscripten;
 
+/**
+ * Class representing vectors with elements of type `int`.
+ * 
+ * @author Theo Dedeken
+ */
 class VectorInt {
     private:
         int _size;
