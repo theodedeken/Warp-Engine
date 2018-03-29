@@ -15,7 +15,7 @@ CXX = $(EMSDK)/em++
 #OBJS = $(addprefix $(BUILDDIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard $(MAINDIR)/*.cpp))))
 #TESTOBJS = $(addprefix $(BUILDDIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard $(TESTDIR)/*.cpp))))
 
-CXXFLAGS += -I $(INCDIR) -std=c++1y --bind
+CXXFLAGS += -I $(INCDIR) -std=c++1y --bind -s DISABLE_EXCEPTION_CATCHING=0
 CXXFLAGSO = $(CXXFLAGS) -s WASM=1
 .PHONY:
 	clean
