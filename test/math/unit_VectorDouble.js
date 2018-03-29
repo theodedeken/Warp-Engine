@@ -12,7 +12,7 @@ test('constructor', t => {
 })
 
 test.failing('constructor exceptions negative size', t => {
-    var vector = new Module.VectorDouble(-1)
+    t.throws(() => new Module.VectorDouble(-1))
 })
 
 test('get size', t => {

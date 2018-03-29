@@ -1,6 +1,9 @@
+#include <assert.h>
+
 #include "VectorDouble.hpp"
 
 VectorDouble::VectorDouble(int size){
+    assert(size >= 0);
     _size = size;
     _values = new double [size];
 }
@@ -14,39 +17,31 @@ int VectorDouble::getSize() const {
 }
 
 double VectorDouble::getValue(int index){
+    assert(index >= 0 && index < _size);
     return _values[index];
 }
 
 void VectorDouble::setValue(int index, double value){
+    assert(index >= 0 && index < _size);
     _values[index] = value;
 }
 
 VectorDouble* VectorDouble::plus(VectorDouble* b){
-    if (_size == b->getSize()){
-        VectorDouble* res = new VectorDouble(_size);
-        for (int i = 0; i < _size; i++){
-            res->setValue(i, _values[i] + b->getValue(i));
-        }
-        return res;
+    assert(_size == b->getSize());
+    VectorDouble* res = new VectorDouble(_size);
+    for (int i = 0; i < _size; i++){
+        res->setValue(i, _values[i] + b->getValue(i));
     }
-    else {
-        //TODO error
-        return nullptr;
-    }
+    return res;
 }
 
 VectorDouble* VectorDouble::minus(VectorDouble* b){
-    if (_size == b->getSize()){
-        VectorDouble* res = new VectorDouble(_size);
-        for (int i = 0; i < _size; i++){
-            res->setValue(i, _values[i] - b->getValue(i));
-        }
-        return res;
+    assert(_size == b->getSize());
+    VectorDouble* res = new VectorDouble(_size);
+    for (int i = 0; i < _size; i++){
+        res->setValue(i, _values[i] - b->getValue(i));
     }
-    else {
-        //TODO error
-        return nullptr;
-    }
+    return res;
 }
 
 VectorDouble* VectorDouble::mult(double a){
@@ -66,15 +61,11 @@ VectorDouble* VectorDouble::div(double a){
 }
 
 double VectorDouble::dot(VectorDouble* b){
-    if (_size == b->getSize()){
-        double res = 0;
-        for (int i = 0; i < _size; i++){
-            res += _values[i] * b->getValue(i);
-        }
-        return res;
+    assert(_size == b->getSize());
+    double res = 0;
+    for (int i = 0; i < _size; i++){
+        res += _values[i] * b->getValue(i);
     }
-    else {
-        //TODO error
-        return -1;
-    }
+    return res;
+    
 }
