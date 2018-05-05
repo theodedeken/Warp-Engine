@@ -1,0 +1,6 @@
+[package]
+name = "warp_engine"
+version = "0.1.0"
+authors = ["Theo Dedeken <theo.dedeken@telenet.be>"]
+
+[dependencies]
