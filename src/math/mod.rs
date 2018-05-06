@@ -1,2 +1,2 @@
-pub mod vec_d;
 pub mod mat_d;
+pub mod vec_d;
