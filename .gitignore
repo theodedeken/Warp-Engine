@@ -117,3 +117,5 @@ typings/
 
 /node_modules/
 
+wasm/
+dist/

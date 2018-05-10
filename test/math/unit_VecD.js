@@ -1,5 +1,5 @@
 import test from 'ava';
-import Module from '../_Warp'
+import { VecD } from '../../wasm/warp_engine';
 
 function floatTest(t, input, expected, decimal){
     var val = Math.round(input * Math.pow(10, decimal)) / Math.pow(10, decimal)
@@ -7,7 +7,7 @@ function floatTest(t, input, expected, decimal){
 }
 
 test('constructor', t => {
-    var vector = new Module.VectorDouble(3)
+    var vector = new VecD(3)
     t.not(vector, null)
 })
 
