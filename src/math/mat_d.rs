@@ -127,7 +127,7 @@ impl MatD {
         MatD::new(self.height, self.width, values)
     }
 
-    /// Subtract another matrix width this matrix and return a new matrix with the result.
+    /// Subtract another matrix to this matrix and return a new matrix with the result.
     ///
     /// # Arguments
     /// `matrix` - The matrix to subtract.

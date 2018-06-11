@@ -3,3 +3,4 @@
 extern crate wasm_bindgen;
 
 pub mod math;
+pub mod render;
