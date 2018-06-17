@@ -33,3 +33,9 @@ impl Shader {
         }
     }
 }
+
+impl Shader {
+    pub fn get_reference(&self) -> &Reference {
+        &self.reference
+    }
+}

@@ -1,10 +1,15 @@
 import test from 'ava';
 import { VecD } from '../../wasm/warp_engine';
+import { booted } from '../../wasm/warp_engine_bg';
 
-function floatTest(t, input, expected, decimal){
+function floatTest(t, input, expected, decimal) {
     var val = Math.round(input * Math.pow(10, decimal)) / Math.pow(10, decimal)
     t.is(val, expected)
 }
+
+test.before('init', t => {
+    booted.then(t.is(true, true));
+})
 
 test('constructor', t => {
     var vector = new VecD(3)
@@ -98,7 +103,7 @@ test('mult', t => {
     var vectorMult2 = vector.mult(-2)
     var vectorMult3 = vector.mult(1.5)
     var vectorMult4 = vector.mult(0.5)
-    floatTest(t, vectorMult1.getValue(0), 34.5, 1)  
+    floatTest(t, vectorMult1.getValue(0), 34.5, 1)
     floatTest(t, vectorMult1.getValue(1), 25, 0)
     floatTest(t, vectorMult1.getValue(2), 15.7, 1)
     floatTest(t, vectorMult2.getValue(0), -13.8, 1)
