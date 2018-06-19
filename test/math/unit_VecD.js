@@ -1,43 +1,43 @@
 import test from 'ava';
-import { VecD } from '../../wasm/warp_engine';
-import { booted } from '../../wasm/warp_engine_bg';
+const warp = require('../../wasm/warp_engine');
+const VecD = warp.VecD;
 
 function floatTest(t, input, expected, decimal) {
     var val = Math.round(input * Math.pow(10, decimal)) / Math.pow(10, decimal)
     t.is(val, expected)
 }
 
-test.before('init', t => {
-    booted.then(t.is(true, true));
-})
-
 test('constructor', t => {
-    var vector = new VecD(3)
-    t.not(vector, null)
+    var vector1 = VecD.new([1, 2, 3]);
+    t.not(vector1, null);
+    var vector2 = VecD.with_size(3);
+    t.not(vector2, null);
 })
 
-test.failing('constructor exceptions negative size', t => {
-    t.throws(() => new Module.VectorDouble(-1))
+test('constructor exceptions negative size', t => {
+    t.throws(() => VecD.with_size(-1))
 })
 
 test('get size', t => {
-    var vector = new Module.VectorDouble(1)
-    t.is(vector.size, 1)
-    vector = new Module.VectorDouble(0)
-    t.is(vector.size, 0)
-    vector = new Module.VectorDouble(123)
-    t.is(vector.size, 123)
+    var vector = VecD.with_size(1)
+    t.is(vector.len(), 1)
+    vector = VecD.with_size(0)
+    t.is(vector.len(), 0)
+    vector = VecD.with_size(123)
+    t.is(vector.len(), 123)
+    vector = VecD.new([1.3, 5.2, 6.3])
+    t.is(vector.len(), 3)
 })
 
 test('set and get value', t => {
-    var vector = new Module.VectorDouble(3)
-    t.is(vector.getValue(0), 0)
-    vector.setValue(1, 1.5)
-    t.is(vector.getValue(1), 1.5)
-    vector.setValue(2, -5.635)
-    t.is(vector.getValue(0), 0)
-    t.is(vector.getValue(1), 1.5)
-    t.is(vector.getValue(2), -5.635)
+    var vector = VecD.new(new Float64Array([0, 0, 0]))
+    t.is(vector.get(0), 0)
+    //vector.set(1, 1.5)
+    //t.is(vector.get(1), 1.5)
+    //vector.set(2, -5.635)
+    //t.is(vector.get(0), 0)
+    //t.is(vector.get(1), 1.5)
+    //t.is(vector.get(2), -5.635)
 })
 
 test.failing('exceptions when accessing elements out of bounds', t => {

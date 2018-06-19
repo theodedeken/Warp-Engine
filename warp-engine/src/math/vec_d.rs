@@ -29,7 +29,7 @@ impl VecD {
     }
 
     /// Returns the length of the vector.
-    pub extern "C" fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.values.len()
     }
 
