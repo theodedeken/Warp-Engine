@@ -1,0 +1,7 @@
+[package]
+name = "webgl2-bind"
+version = "0.1.0"
+authors = ["Theo Dedeken <theo.dedeken@telenet.be>"]
+
+[dependencies]
+wasm-bindgen = "0.2.11"

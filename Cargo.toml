@@ -3,4 +3,5 @@
 members = [
     "glenum-bind",
     "warp-engine",
+    "webgl2-bind",
 ]

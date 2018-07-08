@@ -4,6 +4,7 @@
 extern crate glenum_bind;
 extern crate stdweb;
 extern crate wasm_bindgen;
+extern crate webgl2_bind;
 
 pub mod graphics;
 pub mod math;
