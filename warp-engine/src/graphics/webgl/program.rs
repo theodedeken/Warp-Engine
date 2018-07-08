@@ -12,8 +12,8 @@ pub struct Program {
 
 #[wasm_bindgen]
 impl Program {
-    pub fn new(vertex_shader: Shader, fragment_shader: Shader) -> Program {
-        let context = WebGLContext::new();
+    pub fn new(context: &WebGLContext, vertex_shader: Shader, fragment_shader: Shader) -> Program {
+        let context = context.clone();
         let value = js! {(@{context.get_reference()}).createProgram();};
         let reference = value.into_reference().unwrap();
         js! {@(no_return)
@@ -28,5 +28,11 @@ impl Program {
             vertex_shader,
             fragment_shader,
         }
+    }
+}
+
+impl Program {
+    pub fn get_reference(&self) -> &Reference {
+        &self.reference
     }
 }

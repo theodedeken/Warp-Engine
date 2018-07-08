@@ -12,8 +12,8 @@ pub struct Shader {
 
 #[wasm_bindgen]
 impl Shader {
-    pub fn new(code: &str, kind: ShaderKind) -> Shader {
-        let context = WebGLContext::new();
+    pub fn new(context: &WebGLContext, code: &str, kind: ShaderKind) -> Shader {
+        let context = context.clone();
         let value = js! {
             let context = @{context.get_reference()};
             let shader = context.createShader(@{ kind as u32 });

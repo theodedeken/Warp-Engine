@@ -13,8 +13,8 @@ pub struct Buffer {
 
 #[wasm_bindgen]
 impl Buffer {
-    pub fn new(kind: BufferKind) -> Buffer {
-        let context = WebGLContext::new();
+    pub fn new(context: &WebGLContext, kind: BufferKind) -> Buffer {
+        let context = context.clone();
         let value = js! { return (@{&context.get_reference()}).createBuffer(); };
 
         Buffer {
@@ -30,5 +30,9 @@ impl Buffer {
             (@{self.context.get_reference()}).bufferData(@{self.kind as u32},@{TypedArray::from(data)}, @{draw_mode as u32});
             (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},null);
         };
+    }
+
+    pub fn bind(&self) {
+        js! { (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},@{&self.reference}) };
     }
 }

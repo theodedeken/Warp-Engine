@@ -8,8 +8,6 @@ pub struct VecD {
     values: Vec<f64>,
 }
 
-//TODO size checks for arithmetic and accesses with panics, init in add not with_capacity
-
 #[wasm_bindgen]
 impl VecD {
     /// Constructs a vector with values.
