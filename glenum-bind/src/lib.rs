@@ -1,8 +1,7 @@
 /*
-    Credits to https://github.com/oussama/glenum-rs/
+    Credits to https://github.com/oussama/glenum-rs/ for the major part of these enums
 
-    Just a version with wasm_bindgen bindings
-    
+    Extended with wasm_bindgen and webgl2 constants    
     
     Documentation taken from https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants
 */
@@ -120,6 +119,8 @@ pub enum DataType {
 pub enum Flag {
     /// Passed to enable/disable to turn on/off blending. Can also be used with getParameter to find the current blending method.
     Blend = 0x0BE2,
+    /// Passed to enable/disable to turn on/off culling. Can also be used with getParameter to find the current culling method.
+    CullFace = 0x0B44,
     /// Passed to enable/disable to turn on/off the depth test. Can also be used with getParameter to query the depth test.
     DepthTest = 0x0B71,
     /// Passed to enable/disable to turn on/off dithering. Can also be used with getParameter to find the current dithering method.
@@ -134,6 +135,9 @@ pub enum Flag {
     ScissorTest = 0x0C11,
     /// Passed to enable/disable to turn on/off the stencil test. Can also be used with getParameter to query the stencil test.
     StencilTest = 0x0B90,
+    /// Passed to enable/disable to turn on/off that primitives are discarded immediately before the rasterization stage,
+    /// but after the optional transform feedback stage. gl.clear() commands are ignored.
+    RasterizerDiscard = 0x8C89,
 }
 
 #[wasm_bindgen]
@@ -215,6 +219,10 @@ pub enum BlendEquation {
     FuncSubstract = 0x800A,
     /// Passed to blendEquation or blendEquationSeparate to specify a reverse subtraction blend function (destination - source).
     FuncReverseSubtract = 0x800B,
+    /// Minimum of source and destination,
+    Min = 0x8007,
+    /// Maximum of source and destination,
+    Max = 0x8008,
 }
 
 /// Constants passed to WebGLRenderingContext.getParameter() to specify what information to return.
@@ -379,8 +387,6 @@ pub enum VertexAttrib {
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Culling {
-    /// Passed to enable/disable to turn on/off culling. Can also be used with getParameter to find the current culling method.
-    CullFace = 0x0B44,
     /// Passed to cullFace to specify that only front faces should be drawn.
     Front = 0x0404,
     /// Passed to cullFace to specify that only back faces should be drawn.
@@ -401,6 +407,8 @@ pub enum Error {
     InvalidValue = 0x0501,
     /// Returned from getError.
     InvalidOperation = 0x0502,
+    /// Returned from getError.
+    InvalidFramebufferOperation = 0x0506,
     /// Returned from getError.
     OutOfMemory = 0x0505,
     /// Returned from getError.
@@ -465,6 +473,7 @@ pub enum StencilTest {
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum StencilAction {
+    Zero = 0,
     ///
     Keep = 0x1E00,
     ///
@@ -511,18 +520,26 @@ pub enum PixelFormat {
     LuminanceAlpha = 0x190A,
 }
 
-/// Constants passed to WebGLRenderingContext.hint()
+/// Constants passed to WebGLRenderingContext.hint() mode argument
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-pub enum Hint {
+pub enum HintMode {
     /// There is no preference for this behavior.
     DontCare = 0x1100,
     /// The most efficient behavior should be used.
     Fastest = 0x1101,
     /// The most correct or the highest quality option should be used.
     Nicest = 0x1102,
+}
+
+/// Constants passed to WebGLRenderingContext.hint() target argument
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum HintTarget {
     /// Hint for the quality of filtering when generating mipmap images with WebGLRenderingContext.generateMipmap().
     GenerateMipmapHint = 0x8192,
+    /// Accuracy of the derivative calculation for the GLSL built-in functions: dFdx, dFdy, and fwidth.
+    FragmentShaderDerivativeHint = 0x8B8B,
 }
 
 /// WebGLRenderingContext.texParameter[fi]() or WebGLRenderingContext.bindTexture() "target" parameter
@@ -689,7 +706,7 @@ pub enum Buffers {
     InvalidFramebufferOperation = 0x0506,
 }
 
-/// Constants passed to WebGLRenderingContext.hint()
+/// Constants passed to WebGLRenderingContext.pixelStorei()
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum PixelStorageMode {
@@ -705,6 +722,22 @@ pub enum PixelStorageMode {
     /// Unpacking of pixel data from memory
     /// Can be 1, 2, 4, 8 defaults to 4
     UnpackAlignment = 0x0CF5,
+    /// Number of pixels in a row.
+    PackRowLength = 0x0D02,
+    /// Number of pixel locations skipped before the first pixel is written into memory.
+    PackSkipPixels = 0x0D04,
+    /// Number of rows of pixel locations skipped before the first pixel is written into memory
+    PackSkipRows = 0x0D03,
+    /// Number of pixels in a row.
+    UnpackRowLength = 0x0CF2,
+    /// Image height used for reading pixel data from memory
+    UnpackImageHeight = 0x806E,
+    /// Number of pixel images skipped before the first pixel is read from memory
+    UnpackSkipPixels = 0x0CF4,
+    /// Number of rows of pixel locations skipped before the first pixel is read from memory
+    UnpackSkipRows = 0x0CF3,
+    /// Number of pixel images skipped before the first pixel is read from memory
+    UnpackSkipImages = 0x806D,
 }
 
 ///
@@ -776,4 +809,42 @@ pub enum TextureCompression {
     /// It also provides a 4:1 compression,
     /// but differs to the DXT3 compression in how the alpha compression is done.
     RgbaDxt5 = 0x83F3,
+}
+
+/// A texture unit
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum TextureUnit {
+    Texture0 = 0x84C0,
+    Texture1 = 0x84C1,
+    Texture2 = 0x84C2,
+    Texture3 = 0x84C3,
+    Texture4 = 0x84C4,
+    Texture5 = 0x84C5,
+    Texture6 = 0x84C6,
+    Texture7 = 0x84C7,
+    Texture8 = 0x84C8,
+    Texture9 = 0x84C9,
+    Texture10 = 0x84CA,
+    Texture11 = 0x84CB,
+    Texture12 = 0x84CC,
+    Texture13 = 0x84CD,
+    Texture14 = 0x84CE,
+    Texture15 = 0x84CF,
+    Texture16 = 0x84D0,
+    Texture17 = 0x84D1,
+    Texture18 = 0x84D2,
+    Texture19 = 0x84D3,
+    Texture20 = 0x84D4,
+    Texture21 = 0x84D5,
+    Texture22 = 0x84D6,
+    Texture23 = 0x84D7,
+    Texture24 = 0x84D8,
+    Texture25 = 0x84D9,
+    Texture26 = 0x84DA,
+    Texture27 = 0x84DB,
+    Texture28 = 0x84DC,
+    Texture29 = 0x84DD,
+    Texture30 = 0x84DE,
+    Texture31 = 0x84DF,
 }

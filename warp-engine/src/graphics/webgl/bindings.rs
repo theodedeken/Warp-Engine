@@ -1,3 +1,12 @@
+//! Bindings for all objects and method associated with WebGL2
+//!
+//! Documentation taken straight from https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
+//! and https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext
+//!
+//! Would like to place this in a separate crate but at the moment wasm bindgen
+//! does not like this idea.
+
+use glenum_bind::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -36,14 +45,14 @@ extern "C" {
     /// associated with this context, but might differ if the implementation is not able to provide
     /// the requested width.
     #[wasm_bindgen(method, getter = drawingBufferWidth)]
-    pub fn drawing_buffer_width(this: &WebGL2RenderingContext) -> i64;
+    pub fn drawing_buffer_width(this: &WebGL2RenderingContext) -> u32;
 
     /// The read-only `WebGLRenderingContext.drawingBufferHeight` property represents the actual height
     /// of the current drawing buffer. It should match the height attribute of the `<canvas>` element
     /// associated with this context, but might differ if the implementation is not able to provide
     /// the requested height.
     #[wasm_bindgen(method, getter = drawingBufferHeight)]
-    pub fn drawing_buffer_height(this: &WebGL2RenderingContext) -> i64;
+    pub fn drawing_buffer_height(this: &WebGL2RenderingContext) -> u32;
 
     /// The `WebGLRenderingContext.getContextAttributes()` method returns a `WebGLContextAttributes`
     /// object that contains the actual context parameters. Might return `null`, if the context is lost.
@@ -54,6 +63,237 @@ extern "C" {
     /// the WebGL context has been lost.
     #[wasm_bindgen(method, js_name = isContextLost)]
     pub fn is_context_lost(this: &WebGL2RenderingContext) -> bool;
+
+    /// The `WebGLRenderingContext.scissor()` method of the WebGL API sets a scissor box, which limits
+    /// the drawing to a specified rectangle.
+    #[wasm_bindgen(method)]
+    pub fn scissor(this: &WebGL2RenderingContext, x: i32, y: i32, width: u32, height: u32);
+
+    /// The `WebGLRenderingContext.viewport()` method of the WebGL API sets the viewport, which
+    /// specifies the affine transformation of x and y from normalized device coordinates to window
+    /// coordinates.
+    #[wasm_bindgen(method)]
+    pub fn viewport(this: &WebGL2RenderingContext, x: i32, y: i32, width: u32, height: u32);
+
+    /// The `WebGLRenderingContext.activeTexture()` method of the WebGL API specifies which texture
+    /// unit to make active.
+    #[wasm_bindgen(method, js_name = activeTexture)]
+    pub fn active_texture(this: &WebGL2RenderingContext, texture: TextureUnit);
+
+    /// The `WebGLRenderingContext.blendColor()` method of the WebGL API is used to set the source and
+    /// destination blending factors.
+    #[wasm_bindgen(method, js_name = blendColor)]
+    pub fn blend_color(this: &WebGL2RenderingContext, red: f32, green: f32, blue: f32, alpha: f32);
+
+    /// The `WebGLRenderingContext.blendEquation()` method of the WebGL API is used to set both the RGB
+    /// blend equation and alpha blend equation to a single equation.
+    ///
+    /// The blend equation determines how a new pixel is combined with a pixel already in the
+    /// WebGLFramebuffer.
+    #[wasm_bindgen(method, js_name = blendEquation)]
+    pub fn blend_equation(this: &WebGL2RenderingContext, mode: BlendEquation);
+
+    /// The `WebGLRenderingContext.blendEquationSeparate()` method of the WebGL API is used to set
+    /// the RGB blend equation and alpha blend equation separately.
+    ///
+    /// The blend equation determines how a new pixel is combined with a pixel already in the
+    /// WebGLFramebuffer.
+    #[wasm_bindgen(method, js_name = blendEquationSeparate)]
+    pub fn blend_equation_separate(
+        this: &WebGL2RenderingContext,
+        mode_rgb: BlendEquation,
+        mode_alpha: BlendEquation,
+    );
+
+    /// The `WebGLRenderingContext.blendFunc()` method of the WebGL API defines which function is used
+    /// for blending pixel arithmetic.
+    #[wasm_bindgen(method, js_name = blendFunc)]
+    pub fn blend_func(this: &WebGL2RenderingContext, sfactor: BlendMode, dfactor: BlendMode);
+
+    /// The `WebGLRenderingContext.blendFuncSeparate()` method of the WebGL API defines which function
+    /// is used for blending pixel arithmetic for RGB and alpha components separately.
+    #[wasm_bindgen(method, js_name = blendFuncSeparate)]
+    pub fn blend_func_separate(
+        this: &WebGL2RenderingContext,
+        src_rgb: BlendMode,
+        dst_rgb: BlendMode,
+        src_alpha: BlendMode,
+        dst_alpha: BlendMode,
+    );
+
+    /// The `WebGLRenderingContext.clearColor()` method of the WebGL API specifies the color values
+    /// used when clearing color buffers.
+    ///
+    /// This specifies what color values to use when calling the clear() method. The values are clamped
+    /// between 0 and 1.
+    #[wasm_bindgen(method, js_name = clearColor)]
+    pub fn clear_color(this: &WebGL2RenderingContext, red: f32, green: f32, blue: f32, alpha: f32);
+
+    /// The `WebGLRenderingContext.clearDepth()` method of the WebGL API specifies the clear value for
+    /// the depth buffer.
+    ///
+    /// This specifies what depth value to use when calling the clear() method. The value is clamped
+    /// between 0 and 1.
+    #[wasm_bindgen(method, js_name = clearDepth)]
+    pub fn clear_depth(this: &WebGL2RenderingContext, depth: f32);
+
+    /// The `WebGLRenderingContext.clearStencil()` method of the WebGL API specifies the clear value
+    /// for the stencil buffer.
+    ///
+    /// This specifies what stencil value to use when calling the clear() method.
+    #[wasm_bindgen(method, js_name = clearStencil)]
+    pub fn clear_stencil(this: &WebGL2RenderingContext, s: i32);
+
+    /// The `WebGLRenderingContext.colorMask()`  method of the WebGL API sets which color components
+    /// to enable or to disable when drawing or rendering to a WebGLFramebuffer.
+    #[wasm_bindgen(method, js_name = colorMask)]
+    pub fn color_mask(
+        this: &WebGL2RenderingContext,
+        red: bool,
+        green: bool,
+        blue: bool,
+        alpha: bool,
+    );
+
+    /// The `WebGLRenderingContext.cullFace()` method of the WebGL API specifies whether or not
+    /// front- and/or back-facing polygons can be culled.
+    #[wasm_bindgen(method, js_name = cullFace)]
+    pub fn cull_face(this: &WebGL2RenderingContext, mode: Culling);
+
+    /// The `WebGLRenderingContext.depthFunc()` method of the WebGL API specifies a function that
+    /// compares incoming pixel depth to the current depth buffer value.
+    #[wasm_bindgen(method, js_name = depthFunc)]
+    pub fn depth_func(this: &WebGL2RenderingContext, func: DepthTest);
+
+    /// The `WebGLRenderingContext.depthMask()` method of the WebGL API sets whether writing
+    /// into the depth buffer is enabled or disabled.
+    #[wasm_bindgen(method, js_name = depthMask)]
+    pub fn depth_mask(this: &WebGL2RenderingContext, flag: bool);
+
+    /// The `WebGLRenderingContext.depthRange()` method of the WebGL API specifies the depth
+    /// range mapping from normalized device coordinates to window or viewport coordinates.
+    #[wasm_bindgen(method, js_name = depthRange)]
+    pub fn depth_range(this: &WebGL2RenderingContext, z_near: f32, z_far: f32);
+
+    /// The `WebGLRenderingContext.disable()` method of the WebGL API disables specific WebGL
+    /// capabilities for this context.
+    #[wasm_bindgen(method)]
+    pub fn disable(this: &WebGL2RenderingContext, cap: Flag);
+
+    /// The `WebGLRenderingContext.enable()` method of the WebGL API enables specific WebGL
+    /// capabilities for this context.
+    #[wasm_bindgen(method)]
+    pub fn enable(this: &WebGL2RenderingContext, cap: Flag);
+
+    /// The `WebGLRenderingContext.frontFace()` method of the WebGL API specifies whether polygons
+    /// are front- or back-facing by setting a winding orientation.
+    #[wasm_bindgen(method, js_name = frontFace)]
+    pub fn front_face(this: &WebGL2RenderingContext, mode: FrontFaceDirection);
+
+    /// The `WebGLRenderingContext.getParameter()` method of the WebGL API returns a value for the
+    /// passed parameter name.
+    //#[wasm_bindgen(method, js_name = getParameter)]
+    // TODO save for later, this is a very convoluted method
+    //pub fn get_parameter(this: &WebGL2RenderingContext, pname: )
+
+    /// The `WebGLRenderingContext.getError()` method of the WebGL API returns error information.
+    #[wasm_bindgen(method, js_name = getError)]
+    pub fn get_error(this: &WebGL2RenderingContext) -> Error;
+
+    /// The `WebGLRenderingContext.hint()` method of the WebGL API specifies hints for certain behaviors.
+    /// The interpretation of these hints depend on the implementation.
+    #[wasm_bindgen(method)]
+    pub fn hint(this: &WebGL2RenderingContext, target: HintTarget, mode: HintMode);
+
+    /// The `WebGLRenderingContext.isEnabled()` method of the WebGL API tests whether a specific WebGL
+    /// capability is enabled or not for this context.
+    ///
+    /// By default, all capabilities except `gl.DITHER` are disabled.
+    #[wasm_bindgen(method, js_name = isEnabled)]
+    pub fn is_enabled(this: &WebGL2RenderingContext, cap: Flag);
+
+    /// The `WebGLRenderingContext.lineWidth()` method of the WebGL API sets the line width of rasterized lines.
+    #[wasm_bindgen(method, js_name = lineWidth)]
+    pub fn line_width(this: &WebGL2RenderingContext, width: f32);
+
+    /// The `WebGLRenderingContext.pixelStorei()` method of the WebGL API specifies the pixel storage modes.
+    #[wasm_bindgen(method, js_name = pixelStorei)]
+    pub fn pixel_storei(this: &WebGL2RenderingContext, pname: PixelStorageMode, param: i32);
+
+    /// The `WebGLRenderingContext.polygonOffset()` method of the WebGL API specifies the scale factors and
+    /// units to calculate depth values.
+    ///
+    /// The offset is added before the depth test is performed and before the value is written into the depth buffer.
+    #[wasm_bindgen(method, js_name = polygonOffset)]
+    pub fn polygon_offset(this: &WebGL2RenderingContext, factor: f32, units: f32);
+
+    /// The `WebGLRenderingContext.sampleCoverage()` method of the WebGL API specifies multi-sample coverage parameters
+    /// for anti-aliasing effects.
+    #[wasm_bindgen(method, js_name = sampleCoverage)]
+    pub fn sample_coverage(this: &WebGL2RenderingContext, value: f32, invert: bool);
+
+    /// The `WebGLRenderingContext.stencilFunc()` method of the WebGL API sets the front and back function and
+    /// reference value for stencil testing.
+    ///
+    /// Stencilling enables and disables drawing on a per-pixel basis. It is typically used in multipass rendering
+    /// to achieve special effects.
+    #[wasm_bindgen(method, js_name = stencilFunc)]
+    pub fn stencil_func(
+        this: &WebGL2RenderingContext,
+        func: StencilTest,
+        reference: i32,
+        mask: u32,
+    );
+
+    /// The `WebGLRenderingContext.stencilFuncSeparate()` method of the WebGL API sets the front and/or back
+    /// function and reference value for stencil testing.
+    ///
+    /// Stencilling enables and disables drawing on a per-pixel basis. It is typically used in multipass rendering to achieve special effects.
+    #[wasm_bindgen(method, js_name = stencilFuncSeparate)]
+    pub fn stencil_func_separate(
+        this: &WebGL2RenderingContext,
+        face: Culling,
+        func: StencilTest,
+        reference: i32,
+        mask: u32,
+    );
+
+    /// The `WebGLRenderingContext.stencilMask()` method of the WebGL API controls enabling and disabling
+    /// of both the front and back writing of individual bits in the stencil planes.
+    ///
+    /// The `WebGLRenderingContext.stencilMaskSeparate()` method can set front and back stencil writemasks
+    /// to different values.
+    #[wasm_bindgen(method, js_name = stencilMask)]
+    pub fn stencil_mask(this: &WebGL2RenderingContext, mask: u32);
+
+    /// The `WebGLRenderingContext.stencilMaskSeparate()` method of the WebGL API controls enabling and
+    /// disabling of front and/or back writing of individual bits in the stencil planes.
+    ///
+    /// The `WebGLRenderingContext.stencilMask()` method can set both, the front and back stencil writemasks
+    /// to one value at the same time.
+    #[wasm_bindgen(method, js_name = stencilMaskSeparate)]
+    pub fn stencil_mask_separate(this: &WebGL2RenderingContext, face: Culling, mask: u32);
+
+    /// The `WebGLRenderingContext.stencilOp()` method of the WebGL API sets both the front and back-facing
+    /// stencil test actions.
+    #[wasm_bindgen(method, js_name = stencilOp)]
+    pub fn stencil_op(
+        this: &WebGL2RenderingContext,
+        fail: StencilAction,
+        zfail: StencilAction,
+        zpass: StencilAction,
+    );
+
+    /// The `WebGLRenderingContext.stencilOpSeparate()` method of the WebGL API sets the front and/or
+    /// back-facing stencil test actions.
+    #[wasm_bindgen(method, js_name = stencilOpSeparate)]
+    pub fn stencil_op_separate(
+        this: &WebGL2RenderingContext,
+        face: Culling,
+        fail: StencilAction,
+        zfail: StencilAction,
+        zpass: StencilAction,
+    );
 }
 
 //WebGLContextAttributes
