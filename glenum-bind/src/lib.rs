@@ -953,3 +953,44 @@ pub enum Attachment {
     ColorAttachment14 = 0x8CEE,
     ColorAttachment15 = 0x8CEF,
 }
+
+/// Constants passed to `WebGLRenderingContext.getRenderbufferParameter()`
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum RenderbufferParameter {
+    /// Returns a GLint indicating the width of the image of the currently bound renderbuffer.
+    Width = 0x8D42,
+    /// Returns a GLint indicating the height of the image of the currently bound renderbuffer.
+    Height = 0x8D43,
+    /// Returns a GLint that is the resolution size (in bits) for the green color.
+    GreenSize = 0x8D51,
+    /// Returns a GLint that is the resolution size (in bits) for the blue color.
+    BlueSize = 0x8D52,
+    /// Returns a GLint that is the resolution size (in bits) for the red color.
+    RedSize = 0x8D50,
+    /// Returns a GLint that is the resolution size (in bits) for the alpha component.
+    AlphaSize = 0x8D53,
+    /// Returns a GLint that is the resolution size (in bits) for the depth component.
+    DepthSize = 0x8D54,
+    /// Returns a GLint that is the resolution size (in bits) for the stencil component.
+    StencilSize = 0x8D55,
+    /// Returns a GLint indicating the number of samples of the image of the currently bound renderbuffer.
+    Samples = 0x8CAB,
+}
+
+// TODO extend with https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/renderbufferStorage
+/// Constants returned from `WebGLRenderingContext.getRenderbufferParameter()`
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum RenderbufferFormat {
+    /// 4 red bits, 4 green bits, 4 blue bits 4 alpha bits.
+    Rgba4 = 0x8056,
+    /// 5 red bits, 6 green bits, 5 blue bits.
+    Rgb565 = 0x8D62,
+    /// 5 red bits, 5 green bits, 5 blue bits, 1 alpha bit.
+    Rgb5A1 = 0x8057,
+    /// 16 depth bits.
+    DepthComponent16 = 0x81A5,
+    /// 8 stencil bits.
+    StencilIndex8 = 0x8D48,
+}

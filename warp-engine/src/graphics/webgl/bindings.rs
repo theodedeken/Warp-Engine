@@ -434,6 +434,57 @@ extern "C" {
         pixels: Vec<u8>,
         dstOffset: i32,
     );
+
+    /// The `WebGLRenderingContext.bindRenderbuffer()` method of the WebGL API binds a given WebGLRenderbuffer
+    /// to a target, which must be `gl.RENDERBUFFER`.
+    #[wasm_bindgen(method, js_name = bindRenderbuffer)]
+    pub fn bind_renderbuffer(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        renderbuffer: WebGLRenderbuffer,
+    );
+
+    /// The `WebGLRenderingContext.createRenderbuffer()` method of the WebGL API creates and initializes
+    /// a WebGLRenderbuffer object.
+    #[wasm_bindgen(method, js_name = createRenderbuffer)]
+    pub fn create_renderbuffer(this: &WebGL2RenderingContext) -> WebGLRenderbuffer;
+
+    /// The `WebGLRenderingContext.deleteRenderbuffer()` method of the WebGL API deletes a given WebGLRenderbuffer
+    /// object. This method has no effect if the render buffer has already been deleted.
+    #[wasm_bindgen(method, js_name = deleteRenderbuffer)]
+    pub fn delete_renderbuffer(this: &WebGL2RenderingContext, renderbuffer: WebGLRenderbuffer);
+
+    /// The `WebGLRenderingContext.getRenderbufferParameter()` method of the WebGL API returns information
+    /// about the renderbuffer.
+    #[wasm_bindgen(method, js_name = getRenderbufferParameter)]
+    pub fn get_renderbuffer_parameter(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        pname: RenderbufferParameter,
+    ) -> i32;
+    // TODO add pub method get_renderbuffer_format to call this function
+    #[wasm_bindgen(method, js_name = getRenderbufferParameter)]
+    fn get_renderbuffer_parameter_format(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        pname: i32,
+    ) -> RenderbufferFormat;
+
+    /// The `WebGLRenderingContext.isRenderbuffer()` method of the WebGL API returns true if the passed
+    /// WebGLRenderbuffer is valid and false otherwise.
+    #[wasm_bindgen(method, js_name = isRenderbuffer)]
+    pub fn is_renderbuffer(this: &WebGL2RenderingContext, renderbuffer: WebGLRenderbuffer) -> bool;
+
+    /// The `WebGLRenderingContext.renderbufferStorage()` method of the WebGL API creates and initializes
+    /// a renderbuffer object's data store.
+    #[wasm_bindgen(method, js_name = renderbufferStorage)]
+    pub fn renderbuffer_storage(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        internalFormat: RenderbufferFormat,
+        width: u32,
+        height: u32,
+    );
 }
 
 /// WebGLContextAttributes
