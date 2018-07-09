@@ -25,9 +25,19 @@ impl WebGL2RenderingContext {
     pub fn new(id: &str) -> WebGL2RenderingContext {
         document.get_element_by_id(id).get_context("webgl2")
     }
+
+    /// Maps to `get_buffer_parameter` when return type is `i32`
+    pub fn get_buffer_size(&self, target: BufferKind) -> i32 {
+        self.get_buffer_parameter_size(target, BufferParameter::Size)
+    }
+
+    /// Maps to `get_buffer_parameter` when return type is `DataHint`
+    pub fn get_buffer_usage(&self, target: BufferKind) -> DataHint {
+        self.get_buffer_parameter_usage(target, BufferParameter::Usage)
+    }
 }
 
-// WebGL2RenderingContext
+/// WebGL2RenderingContext
 #[wasm_bindgen]
 extern "C" {
     /// The WebGL2RenderingContext interface provides the OpenGL ES 3.0 rendering context
@@ -294,10 +304,164 @@ extern "C" {
         zfail: StencilAction,
         zpass: StencilAction,
     );
+
+    /// The `WebGLRenderingContext.bindBuffer()` method of the WebGL API binds a given WebGLBuffer to a target.
+    #[wasm_bindgen(method, js_name = bindBuffer)]
+    pub fn bind_buffer(this: &WebGL2RenderingContext, target: BufferKind, buffer: WebGLBuffer);
+
+    /// TODO maybe add a method for every buffer type
+
+    /// The `WebGLRenderingContext.bufferData()` method of the WebGL API initializes and creates the
+    /// buffer object's data store.
+    #[wasm_bindgen(method, js_name = bufferData)]
+    pub fn buffer_data(
+        this: &WebGL2RenderingContext,
+        target: BufferKind,
+        srcData: Vec<u8>,
+        usage: DataHint,
+        srcOffset: u32,
+        length: u32,
+    );
+
+    /// The `WebGLRenderingContext.bufferSubData()` method of the WebGL API updates a subset of a
+    /// buffer object's data store.
+    #[wasm_bindgen(method, js_name = bufferSubData)]
+    pub fn buffer_sub_data(
+        this: &WebGL2RenderingContext,
+        target: BufferKind,
+        dst_byte_offset: u32,
+        srcData: Vec<u8>,
+        srcOffset: u32,
+        length: u32,
+    );
+
+    /// The `WebGLRenderingContext.createBuffer()` method of the WebGL API creates and initializes a
+    /// WebGLBuffer storing data such as vertices or colors.
+    #[wasm_bindgen(method, js_name = createBuffer)]
+    pub fn create_buffer(this: &WebGL2RenderingContext) -> WebGLBuffer;
+
+    /// The `WebGLRenderingContext.deleteBuffer()` method of the WebGL API deletes a given WebGLBuffer.
+    /// This method has no effect if the buffer has already been deleted.
+    #[wasm_bindgen(method, js_name = deleteBuffer)]
+    pub fn delete_buffer(this: &WebGL2RenderingContext, buffer: WebGLBuffer);
+
+    /// The `WebGLRenderingContext.getBufferParameter()` method of the WebGL API returns information about the buffer.
+    #[wasm_bindgen(method, js_name = getBufferParameter)]
+    fn get_buffer_parameter_size(
+        this: &WebGL2RenderingContext,
+        target: BufferKind,
+        pname: BufferParameter,
+    ) -> i32;
+    #[wasm_bindgen(method, js_name = getBufferParameter)]
+    fn get_buffer_parameter_usage(
+        this: &WebGL2RenderingContext,
+        target: BufferKind,
+        pname: BufferParameter,
+    ) -> DataHint;
+
+    /// The `WebGLRenderingContext.isBuffer()` method of the WebGL API returns true if the passed
+    /// WebGLBuffer is valid and false otherwise.
+    #[wasm_bindgen(method, js_name = isBuffer)]
+    pub fn is_buffer(this: &WebGL2RenderingContext, buffer: WebGLBuffer) -> bool;
+
+    /// The WebGLRenderingContext.bindFramebuffer() method of the WebGL API binds a given
+    /// WebGLFramebuffer to a target.
+    #[wasm_bindgen(method, js_name = bindFramebuffer)]
+    pub fn bind_framebuffer(
+        this: &WebGL2RenderingContext,
+        target: FramebufferKind,
+        framebuffer: WebGLFramebuffer,
+    );
+
+    /// The `WebGLRenderingContext.checkFramebufferStatus()` method of the WebGL API returns the completeness
+    /// status of the WebGLFramebuffer object.
+    #[wasm_bindgen(method, js_name = checkFramebufferStatus)]
+    pub fn check_framebuffer_status(this: &WebGL2RenderingContext, target: FramebufferKind);
+
+    /// The `WebGLRenderingContext.createFramebuffer()` method of the WebGL API creates and initializes a
+    /// WebGLFramebuffer object.
+    #[wasm_bindgen(method, js_name = createFramebuffer)]
+    pub fn create_framebuffer(this: &WebGL2RenderingContext) -> WebGLFramebuffer;
+
+    /// The `WebGLRenderingContext.deleteFramebuffer()` method of the WebGL API deletes a given WebGLFramebuffer object.
+    /// This method has no effect if the frame buffer has already been deleted.
+    #[wasm_bindgen(method, js_name = deleteFramebuffer)]
+    pub fn delete_framebuffer(this: &WebGL2RenderingContext, framebuffer: WebGLFramebuffer);
+
+    /// The `WebGLRenderingContext.framebufferRenderbuffer()` method of the WebGL API attaches a WebGLRenderbuffer object
+    /// to a WebGLFramebuffer object.
+    #[wasm_bindgen(method, js_name = framebufferRenderbuffer)]
+    pub fn framebuffer_renderbuffer(
+        this: &WebGL2RenderingContext,
+        target: FramebufferKind,
+        attachment: Attachment,
+        renderbuffertarget: RenderbufferKind,
+        renderbuffer: WebGLRenderbuffer,
+    );
+
+    /// The `WebGLRenderingContext.framebufferTexture2D()` method of the WebGL API attaches a texture to a
+    /// WebGLFramebuffer.
+    #[wasm_bindgen(method, js_name = framebufferTexture2D)]
+    pub fn framebuffer_texture_2d(
+        this: &WebGL2RenderingContext,
+        target: FramebufferKind,
+        attachment: Attachment,
+        textarget: TextureBindPoint,
+        texture: WebGLTexture,
+        level: i32,
+    );
+
+    // TODO getFramebufferAttachmentParameter()
+    // later because of awful return structure
+
+    /// The `WebGLRenderingContext.isFramebuffer()` method of the WebGL API returns true if the passed
+    /// WebGLFramebuffer is valid and false otherwise.
+    #[wasm_bindgen(method, js_name = isFramebuffer)]
+    pub fn is_framebuffer(this: &WebGL2RenderingContext, framebuffer: WebGLFramebuffer) -> bool;
+
+    /// The `WebGLRenderingContext.readPixels()` method of the WebGL API reads a block of pixels from a
+    /// specified rectangle of the current color framebuffer into an ArrayBufferView object.
+    // TODO rework because of variability of pixels datatype
+    #[wasm_bindgen(method, js_name = readPixels)]
+    pub fn read_pixels(
+        this: &WebGL2RenderingContext,
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+        format: ColorFormat,
+        pixel_type: PixelType,
+        pixels: Vec<u8>,
+        dstOffset: i32,
+    );
 }
 
-//WebGLContextAttributes
+/// WebGLContextAttributes
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLContextAttributes;
+}
+
+/// WebGLBuffer
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLBuffer;
+}
+
+/// WebGLFramebuffer
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLFramebuffer;
+}
+
+/// WebGLRenderbuffer
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLRenderbuffer;
+}
+
+/// WebGLTexture
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLTexture;
 }

@@ -80,17 +80,41 @@ pub enum ShaderParameter {
 pub enum BufferKind {
     Array = 0x8892,
     ElementArray = 0x8893,
+    /// Buffer for copying from one buffer object to another.
+    CopyReadBuffer = 0x8F36,
+    /// Buffer for copying from one buffer object to another.
+    CopyWriteBuffer = 0x8F37,
+    /// Buffer for transform feedback operations.
+    TransformFeedbackBuffer = 0x8C8E,
+    /// Buffer used for storing uniform blocks.
+    UniformBuffer = 0x8A11,
+    /// Buffer used for pixel transfer operations.
+    PixelPackBuffer = 0x88EB,
+    /// Buffer used for pixel transfer operations.
+    PixelUnpackBuffer = 0x88EC,
 }
 
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-pub enum DrawMode {
+pub enum DataHint {
     /// Passed to bufferData as a hint about whether the contents of the buffer are likely to be used often and not change often.
-    Static = 0x88E4,
+    StaticDraw = 0x88E4,
     /// Passed to bufferData as a hint about whether the contents of the buffer are likely to be used often and change often.
-    Dynamic = 0x88E8,
+    DynamicDraw = 0x88E8,
     /// Passed to bufferData as a hint about whether the contents of the buffer are likely to not be used often.
-    Stream = 0x88E0,
+    StreamDraw = 0x88E0,
+    /// Contents of the buffer are likely to be used often and not change often. Contents are read from the buffer, but not written.
+    StaticRead = 0x88E5,
+    /// Contents of the buffer are likely to be used often and change often. Contents are read from the buffer, but not written.
+    DynamicRead = 0x88E9,
+    /// Contents of the buffer are likely to not be used often. Contents are read from the buffer, but not written.
+    StreamRead = 0x88E1,
+    /// Contents of the buffer are likely to be used often and not change often. Contents are neither written or read by the user.
+    StaticCopy = 0x88E6,
+    /// Contents of the buffer are likely to be used often and change often. Contents are neither written or read by the user.
+    DynamicCopy = 0x88EA,
+    /// Contents of the buffer are likely to be used often and not change often. Contents are neither written or read by the user.
+    StreamCopy = 0x88E2,
 }
 
 #[wasm_bindgen]
@@ -501,6 +525,8 @@ pub enum PixelType {
     UnsignedShort5551 = 0x8034,
     ///
     UnsignedShort565 = 0x8363,
+    ///
+    Float = 0x1406,
 }
 
 #[wasm_bindgen]
@@ -518,6 +544,17 @@ pub enum PixelFormat {
     Luminance = 0x1909,
     ///
     LuminanceAlpha = 0x190A,
+}
+
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum ColorFormat {
+    ///
+    Alpha = 0x1906,
+    ///
+    Rgb = 0x1907,
+    ///
+    Rgba = 0x1908,
 }
 
 /// Constants passed to WebGLRenderingContext.hint() mode argument
@@ -847,4 +884,72 @@ pub enum TextureUnit {
     Texture29 = 0x84DD,
     Texture30 = 0x84DE,
     Texture31 = 0x84DF,
+}
+
+/// Constants passed to WebGLRenderingContext.bindFramebuffer() and other framebuffer methods
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum FramebufferKind {
+    /// Collection buffer data storage of color, alpha, depth and stencil buffers used to render an image.
+    Framebuffer = 0x8D40,
+    /// Equivalent to `Framebuffer`. Used as a destination for drawing, rendering, clearing, and writing operations.
+    DrawFramebuffer = 0x8CA9,
+    /// Used as a source for reading operations.
+    ReadFramebuffer = 0x8CA8,
+}
+
+/// Constants passed to `WebGLRenderingContext.checkFramebufferStatus()`
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum FramebufferStatus {
+    /// The framebuffer is ready to display.
+    FramebufferComplete = 0x8CD5,
+    /// The attachment types are mismatched or not all framebuffer attachment points are framebuffer attachment complete.
+    FramebufferIncompleteAttachment = 0x8CD6,
+    /// There is no attachment.
+    FramebufferIncompleteMissingAttachment = 0x8CD7,
+    /// Height and width of the attachment are not the same.
+    FramebufferIncompleteDimensions = 0x8CD9,
+    /// The format of the attachment is not supported or if depth and stencil attachments are not the same renderbuffer.
+    FramebufferUnsupported = 0x8CDD,
+    /// The values of gl.RENDERBUFFER_SAMPLES are different among attached renderbuffers, or are non-zero if the
+    /// attached images are a mix of renderbuffers and textures.
+    FramebufferIncompleteMultisample = 0x8D56,
+}
+
+/// Constants passed to `WebGLRenderingContext.framebufferRenderbuffer()`
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum RenderbufferKind {
+    /// Buffer data storage for single images in a renderable internal format.
+    Renderbuffer = 0x8D41,
+}
+
+/// Constants passed to `WebGLRenderingContext.framebufferRenderbuffer()`
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum Attachment {
+    /// color buffer.
+    ColorAttachment0 = 0x8CE0,
+    /// depth buffer.
+    DepthAttachment = 0x8D00,
+    /// stencil buffer.
+    StencilAttachment = 0x8D20,
+    /// depth and stencil buffer.
+    DepthStencilAttachment = 0x821A,
+    ColorAttachment1 = 0x8CE1,
+    ColorAttachment2 = 0x8CE2,
+    ColorAttachment3 = 0x8CE3,
+    ColorAttachment4 = 0x8CE4,
+    ColorAttachment5 = 0x8CE5,
+    ColorAttachment6 = 0x8CE6,
+    ColorAttachment7 = 0x8CE7,
+    ColorAttachment8 = 0x8CE8,
+    ColorAttachment9 = 0x8CE9,
+    ColorAttachment10 = 0x8CEA,
+    ColorAttachment11 = 0x8CEB,
+    ColorAttachment12 = 0x8CEC,
+    ColorAttachment13 = 0x8CED,
+    ColorAttachment14 = 0x8CEE,
+    ColorAttachment15 = 0x8CEF,
 }
