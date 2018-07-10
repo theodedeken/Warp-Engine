@@ -430,7 +430,7 @@ extern "C" {
         y: i32,
         width: u32,
         height: u32,
-        format: ColorFormat,
+        format: PixelReadFormat,
         pixel_type: PixelType,
         pixels: Vec<u8>,
         dstOffset: i32,
@@ -491,6 +491,99 @@ extern "C" {
     /// target (binding point).
     #[wasm_bindgen(method, js_name = bindTexture)]
     pub fn bind_texture(this: &WebGL2RenderingContext, target: TextureKind, texture: WebGLTexture);
+
+    /// The `WebGLRenderingContext.copyTexImage2D()` method of the WebGL API copies pixels from the current
+    /// WebGLFramebuffer into a 2D texture image.
+    #[wasm_bindgen(method, js_name = copyTexImage2D)]
+    pub fn copy_tex_image_2d(
+        this: &WebGL2RenderingContext,
+        target: TextureBindPoint,
+        level: u32,
+        internalformat: PixelCopyFormat,
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+        border: u32,
+    );
+
+    /// The `WebGLRenderingContext.copyTexSubImage2D()` method of the WebGL API copies pixels from the current
+    /// WebGLFramebuffer into an existing 2D texture sub-image.
+    #[wasm_bindgen(method, js_name = copyTexSubImage2D)]
+    pub fn copy_tex_sub_image_2d(
+        this: &WebGL2RenderingContext,
+        target: TextureBindPoint,
+        level: u32,
+        xoffset: i32,
+        yoffset: i32,
+        x: i32,
+        y: i32,
+        width: u32,
+        height: u32,
+    );
+
+    /// The `WebGLRenderingContext.createTexture()` method of the WebGL API creates and initializes a WebGLTexture object.
+    #[wasm_bindgen(method, js_name = createTexture)]
+    pub fn create_texture(this: &WebGL2RenderingContext) -> WebGLTexture;
+
+    /// The `WebGLRenderingContext.deleteTexture()` method of the WebGL API deletes a given WebGLTexture object.
+    /// This method has no effect if the texture has already been deleted.
+    #[wasm_bindgen(method, js_name = deleteTexture)]
+    pub fn delete_texture(this: &WebGL2RenderingContext, texture: WebGLTexture);
+
+    /// The `WebGLRenderingContext.generateMipmap()` method of the WebGL API generates a set of mipmaps for a
+    /// WebGLTexture object.
+    ///
+    /// Mipmaps are used to create distance with objects. A higher-resolution mipmap is used for objects that
+    /// are closer, and a lower-resolution mipmap is used for objects that are farther away. It starts with the
+    /// resolution of the texture image and halves the resolution until a 1x1 dimension texture image is created.
+    #[wasm_bindgen(method, js_name = generateMipmap)]
+    pub fn generate_mipmap(this: &WebGL2RenderingContext, target: TextureKind);
+
+    //TODO getTexParameter
+
+    /// The `WebGLRenderingContext.isTexture()` method of the WebGL API returns true if the passed WebGLTexture
+    /// is valid and false otherwise.
+    #[wasm_bindgen(method, js_name = isTexture)]
+    pub fn is_texture(this: &WebGL2RenderingContext, texture: WebGLTexture);
+
+    /// The `WebGLRenderingContext.texImage2D()` method of the WebGL API specifies a two-dimensional texture image.
+    /// FIXME type safety for format, polymorphism of original, srcdata type, webgl2 extensions
+    #[wasm_bindgen(method, js_name = texImage2D)]
+    pub fn tex_image_2d(
+        this: &WebGL2RenderingContext,
+        target: TextureBindPoint,
+        level: u32,
+        internalformat: PixelCopyFormat,
+        width: u32,
+        height: u32,
+        border: u32,
+        format: PixelCopyFormat,
+        pixel_type: PixelType,
+        srcData: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    // TODO texSubImage2d
+
+    /// The `WebGLRenderingContext.texParameter[fi]()` methods of the WebGL API set texture parameters.
+    #[wasm_bindgen(method, js_name = texParameterf)]
+    pub fn tex_parameter_f(
+        this: &WebGL2RenderingContext,
+        target: TextureKind,
+        pname: TextureParameter,
+        param: f32,
+    );
+
+    /// The `WebGLRenderingContext.texParameter[fi]()` methods of the WebGL API set texture parameters.
+    #[wasm_bindgen(method, js_name = texParameterf)]
+    pub fn tex_parameter_i(
+        this: &WebGL2RenderingContext,
+        target: TextureKind,
+        pname: TextureParameter,
+        param: i32,
+    );
+
 }
 
 /// WebGLContextAttributes

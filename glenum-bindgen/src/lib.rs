@@ -548,13 +548,28 @@ pub enum PixelFormat {
 
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-pub enum ColorFormat {
+pub enum PixelReadFormat {
     ///
     Alpha = 0x1906,
     ///
     Rgb = 0x1907,
     ///
     Rgba = 0x1908,
+}
+
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum PixelCopyFormat {
+    ///
+    Alpha = 0x1906,
+    ///
+    Rgb = 0x1907,
+    ///
+    Rgba = 0x1908,
+    ///
+    Luminance = 0x1909,
+    ///
+    LuminanceAlpha = 0x190A,
 }
 
 /// Constants passed to WebGLRenderingContext.hint() mode argument
@@ -596,6 +611,7 @@ pub enum TextureKind {
 /// WebGLRenderingContext.texParameter[fi]() "pname" parameter
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+//TODO extend with webgl2 constants
 pub enum TextureParameter {
     ///
     TextureMagFilter = 0x2800,
@@ -605,8 +621,7 @@ pub enum TextureParameter {
     TextureWrapS = 0x2802,
     ///
     TextureWrapT = 0x2803,
-    ///
-    BorderColor = 0x1004,
+    //BorderColor = 0x1004,
 }
 
 /// WebGLRenderingContext.texImage2D() "target" parameter
