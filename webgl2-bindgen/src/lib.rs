@@ -2,11 +2,12 @@
 //!
 //! Documentation taken straight from https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
 //! and https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext
-//!
-//! Would like to place this in a separate crate but at the moment wasm bindgen
-//! does not like this idea.
+#![feature(proc_macro, wasm_custom_section, wasm_import_module)]
 
-use glenum_bind::*;
+extern crate glenum_bindgen;
+extern crate wasm_bindgen;
+
+use glenum_bindgen::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -485,6 +486,11 @@ extern "C" {
         width: u32,
         height: u32,
     );
+
+    /// The `WebGLRenderingContext.bindTexture()` method of the WebGL API binds a given WebGLTexture to a
+    /// target (binding point).
+    #[wasm_bindgen(method, js_name = bindTexture)]
+    pub fn bind_texture(this: &WebGL2RenderingContext, target: TextureKind, texture: WebGLTexture);
 }
 
 /// WebGLContextAttributes

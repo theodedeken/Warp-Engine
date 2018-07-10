@@ -1,4 +1,4 @@
-use glenum_bind::{BufferKind, DataHint};
+use glenum_bindgen::{BufferKind, DataHint};
 use graphics::webgl::buffer::Buffer;
 use graphics::webgl::context::WebGLContext;
 use util::IntoBytes;

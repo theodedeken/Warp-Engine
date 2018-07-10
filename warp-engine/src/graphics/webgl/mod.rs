@@ -1,5 +1,4 @@
 pub mod binding;
-pub mod bindings;
 pub mod buffer;
 pub mod context;
 pub mod matter;

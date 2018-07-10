@@ -587,6 +587,10 @@ pub enum TextureKind {
     Texture2d = 0x0DE1,
     ///
     TextureCubeMap = 0x8513,
+    /// A three-dimensional texture.
+    Texture3d = 0x806F,
+    /// A two-dimensional array texture.
+    Texture2dArray = 0x8C1A,
 }
 
 /// WebGLRenderingContext.texParameter[fi]() "pname" parameter
