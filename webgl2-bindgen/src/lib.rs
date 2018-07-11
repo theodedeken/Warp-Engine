@@ -584,6 +584,113 @@ extern "C" {
         param: i32,
     );
 
+    /// The `WebGLRenderingContext.attachShader()`  method of the WebGL API attaches either a fragment or
+    /// vertex WebGLShader to a WebGLProgram.
+    #[wasm_bindgen(method, js_name = attachShader)]
+    pub fn attach_shader(this: &WebGL2RenderingContext, program: WebGLProgram, shader: WebGLShader);
+
+    /// The `WebGLRenderingContext.bindAttribLocation()` method of the WebGL API binds a generic vertex index
+    /// to an attribute variable.
+    #[wasm_bindgen(method, js_name = bindAttribLocation)]
+    pub fn bind_attrib_location(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        index: u32,
+        name: &str,
+    );
+
+    /// The `WebGLRenderingContext.compileShader()` method of the WebGL API compiles a GLSL shader into binary
+    /// data so that it can be used by a WebGLProgram.
+    #[wasm_bindgen(method, js_name = compileShader)]
+    pub fn compile_shader(this: &WebGL2RenderingContext, shader: WebGLShader);
+
+    /// The `WebGLRenderingContext.createProgram()` method of the WebGL API creates and initializes a WebGLProgram object.
+    #[wasm_bindgen(method, js_name = createProgram)]
+    pub fn create_program(this: &WebGL2RenderingContext) -> WebGLProgram;
+
+    /// The `WebGLRenderingContext.createShader()` method of the WebGL API creates a WebGLShader that can then be configured
+    /// further using `WebGLRenderingContext.shaderSource()` and `WebGLRenderingContext.compileShader()`.
+    #[wasm_bindgen(method, js_name = createShader)]
+    pub fn create_shader(this: &WebGL2RenderingContext) -> WebGLShader;
+
+    /// The `WebGLRenderingContext.deleteProgram()` method of the WebGL API deletes a given WebGLProgram object. This method
+    /// has no effect if the program has already been deleted.
+    #[wasm_bindgen(method, js_name = deleteProgram)]
+    pub fn delete_program(this: &WebGL2RenderingContext, program: WebGLProgram);
+
+    /// The `WebGLRenderingContext.deleteShader()` method of the WebGL API marks a given WebGLShader object for deletion.
+    /// It will then be deleted whenever the shader is no longer in use. This method has no effect if the shader
+    /// has already been deleted, and the WebGLShader is automatically marked for deletion when it is destroyed by the
+    /// garbage collector.
+    #[wasm_bindgen(method, js_name = deleteShader)]
+    pub fn delete_shader(this: &WebGL2RenderingContext, shader: WebGLShader);
+
+    /// The `WebGLRenderingContext.detachShader()` method of the WebGL API detaches a previously attached WebGLShader
+    /// from a WebGLProgram.
+    #[wasm_bindgen(method, js_name = detachShader)]
+    pub fn detach_shader(this: &WebGL2RenderingContext, program: WebGLProgram, shader: WebGLShader);
+
+    /// The `WebGLRenderingContext.getAttachedShaders()` method of the WebGL API returns a list of WebGLShader objects
+    /// attached to a WebGLProgram.
+    /* FIXME: this is not possible in wasm_bindgen atm
+    #[wasm_bindgen(method, js_name = getAttachedShaders)]
+    pub fn get_attached_shaders(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+    ) -> Vec<WebGLShader>;
+    */
+
+    //TODO getProgramParameter
+
+    /// The `WebGLRenderingContext.getProgramInfoLog` returns the information log for the specified WebGLProgram object.
+    /// It contains errors that occurred during failed linking or validation of WebGLProgram objects.
+    #[wasm_bindgen(method, js_name = getProgramInfoLog)]
+    pub fn get_program_info_log(this: &WebGL2RenderingContext, program: WebGLProgram) -> String;
+
+    //TODO getShaderParameter
+
+    /// The `WebGLRenderingContext.getShaderPrecisionFormat()` method of the WebGL API returns a new WebGLShaderPrecisionFormat
+    /// object describing the range and precision for the specified shader numeric format.
+    #[wasm_bindgen(method, js_name = getShaderPrecisionFormat)]
+    pub fn get_shader_precision_format(
+        this: &WebGL2RenderingContext,
+        shader_type: ShaderKind,
+        precision_type: ShaderPrecision,
+    ) -> WebGLShaderPrecisionFormat;
+
+    /// The `WebGLRenderingContext.getShaderInfoLog` returns the information log for the specified WebGLShader object. It contains
+    /// warnings, debugging and compile information.
+    #[wasm_bindgen(method, js_name = getShaderInfoLog)]
+    pub fn get_shader_info_log(this: &WebGL2RenderingContext, shader: WebGLShader) -> String;
+
+    /// The `WebGLRenderingContext.getShaderSource()` method of the WebGL API returns the source code of a WebGLShader as a DOMString.
+    #[wasm_bindgen(method, js_name = getShaderSource)]
+    pub fn get_shader_source(this: &WebGL2RenderingContext, shader: WebGLShader) -> String;
+
+    /// The `WebGLRenderingContext.isProgram()` method of the WebGL API returns true if the passed WebGLProgram is valid, false otherwise.
+    #[wasm_bindgen(method, js_name = isProgram)]
+    pub fn is_program(this: &WebGL2RenderingContext, program: WebGLProgram) -> bool;
+
+    /// The `WebGLRenderingContext.isShader()` method of the WebGL API returns true if the passed WebGLShader is valid, false otherwise.
+    #[wasm_bindgen(method, js_name = isShader)]
+    pub fn is_shader(this: &WebGL2RenderingContext, shader: WebGLShader) -> bool;
+
+    /// The `WebGLRenderingContext.linkProgram()` method of the WebGL API links a given WebGLProgram to the attached vertex and fragment shaders.
+    #[wasm_bindgen(method, js_name = linkProgram)]
+    pub fn link_program(this: &WebGL2RenderingContext, program: WebGLProgram);
+
+    /// The `WebGLRenderingContext.shaderSource()` method of the WebGL API sets the source code of a WebGLShader.
+    #[wasm_bindgen(method, js_name = shaderSource)]
+    pub fn shader_source(this: &WebGL2RenderingContext, shader: WebGLShader, source: &str);
+
+    /// The `WebGLRenderingContext.useProgram()` method of the WebGL API sets the specified WebGLProgram as part of the current rendering state.
+    #[wasm_bindgen(method, js_name = useProgram)]
+    pub fn use_program(this: &WebGL2RenderingContext, program: WebGLProgram);
+
+    /// The `WebGLRenderingContext.validateProgram()` method of the WebGL API validates a WebGLProgram.
+    /// It checks if it is successfully linked and if it can be used in the current WebGL state.
+    #[wasm_bindgen(method, js_name = validateProgram)]
+    pub fn validate_program(this: &WebGL2RenderingContext, program: WebGLProgram);
 }
 
 /// WebGLContextAttributes
@@ -614,4 +721,22 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLTexture;
+}
+
+/// WebGLProgram
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLProgram;
+}
+
+/// WebGLShader
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLShader;
+}
+
+/// WebGLShaderPrecisionFormat;
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLShaderPrecisionFormat;
 }
