@@ -1013,3 +1013,21 @@ pub enum RenderbufferFormat {
     /// 8 stencil bits.
     StencilIndex8 = 0x8D48,
 }
+
+/// Constants passed to vertexAttribPointer
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum AttributeType {
+    /// signed 8-bit integer, with values in [-128, 127]
+    Byte = 0x1400,
+    /// signed 16-bit integer, with values in [-32768, 32767]
+    Short = 0x1402,
+    /// unsigned 8-bit integer, with values in [0, 255]
+    UnsignedByte = 0x1401,
+    /// unsigned 16-bit integer, with values in [0, 65535]
+    UnsignedShort = 0x1403,
+    /// 32-bit IEEE floating point number
+    Float = 0x1406,
+    /// 16-bit IEEE floating point number
+    HalfFloat = 0x140B,
+}

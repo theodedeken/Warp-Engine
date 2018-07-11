@@ -691,6 +691,295 @@ extern "C" {
     /// It checks if it is successfully linked and if it can be used in the current WebGL state.
     #[wasm_bindgen(method, js_name = validateProgram)]
     pub fn validate_program(this: &WebGL2RenderingContext, program: WebGLProgram);
+
+    /// The `WebGLRenderingContext.disableVertexAttribArray()` method of the WebGL API turns the generic
+    /// vertex attribute array off at a given index position.
+    #[wasm_bindgen(method, js_name = disableVertexAttribArray)]
+    pub fn disable_vertex_attrib_array(this: &WebGL2RenderingContext, index: u32);
+
+    /// The `WebGLRenderingContext method enableVertexAttribArray()`, part of the WebGL API, turns on the generic
+    /// vertex attribute array at the specified index into the list of attribute arrays.
+    #[wasm_bindgen(method, js_name = enableVertexAttribArray)]
+    pub fn enable_vertex_attrib_array(this: &WebGL2RenderingContext, index: u32);
+
+    /// The `WebGLRenderingContext.getActiveAttrib()` method of the WebGL API returns a WebGLActiveInfo object
+    /// containing size, type, and name of a vertex attribute. It is generally used when querying unknown uniforms
+    /// either for debugging or generic library creation.
+    #[wasm_bindgen(method, js_name = getActiveAttrib)]
+    pub fn get_active_attrib(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        index: u32,
+    ) -> WebGLActiveInfo;
+
+    /// The `WebGLRenderingContext.getActiveUniform()` method of the WebGL API returns a WebGLActiveInfo object
+    /// containing size, type, and name of a uniform attribute. It is generally used when querying unknown uniforms
+    /// either for debugging or generic library creation.
+    #[wasm_bindgen(method, js_name = getActiveUniform)]
+    pub fn get_active_uniform(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        index: u32,
+    ) -> WebGLActiveInfo;
+
+    /// The `WebGLRenderingContext.getAttribLocation()` method of the WebGL API returns the location of an attribute
+    /// variable in a given WebGLProgram.
+    #[wasm_bindgen(method, js_name = getAttribLocation)]
+    pub fn get_attrib_location(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        name: &str,
+    ) -> i32;
+
+    /// The `WebGLRenderingContext.getUniform()` method of the WebGL API returns the value of a uniform variable
+    /// at a given location.
+    /* FIXME: this method can have a lot of different return types -> figure out what to do
+    #[wasm_bindgen(method, js_name = getUniform)]
+    pub fn get_uniform(this: &WebGL2RenderingContext, program: WebGLProgram, location: WebGLUniformLocation)
+    */
+
+    /// Part of the WebGL API, the `WebGLRenderingContext method getUniformLocation()` returns the location of
+    /// a specific uniform variable which is part of a given WebGLProgram. The uniform variable is returned as
+    /// a WebGLUniformLocation object, which is an opaque identifier used to specify where in the GPU's memory
+    /// that uniform variable is located.
+    #[wasm_bindgen(method, js_name = getUniformLocation)]
+    pub fn get_uniform_location(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        name: &str,
+    ) -> WebGLUniformLocation;
+
+    /// The `WebGLRenderingContext.getVertexAttrib()` method of the WebGL API returns information about a vertex
+    /// attribute at a given position.
+    /* FIXME: a lot of different return value possibilities
+    #[wasm_bindgen(method, js_name = getVertexAttrib)]
+    pub fn get_vertex_attrib(this: &WebGL2RenderingContext, index: u32, pname: );
+    */
+
+    /// The `WebGLRenderingContext.getVertexAttribOffset()` method of the WebGL API returns the address of a
+    /// specified vertex attribute.
+    // FIXME: pname can only be gl.VERTEX_ATTRIB_ARRAY_POINTER
+    #[wasm_bindgen(method, js_name = getVertexAttribOffset)]
+    pub fn get_vertex_attrib_offset(
+        this: &WebGL2RenderingContext,
+        index: u32,
+        pname: VertexAttrib,
+    ) -> i64;
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform1f)]
+    pub fn uniform_1f(this: &WebGL2RenderingContext, location: WebGLUniformLocation, v0: f32);
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform2f)]
+    pub fn uniform_2f(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: f32,
+        v1: f32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform3f)]
+    pub fn uniform_3f(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: f32,
+        v1: f32,
+        v2: f32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform4f)]
+    pub fn uniform_4f(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: f32,
+        v1: f32,
+        v2: f32,
+        v3: f32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform1i)]
+    pub fn uniform_1i(this: &WebGL2RenderingContext, location: WebGLUniformLocation, v0: i32);
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform2i)]
+    pub fn uniform_2i(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: i32,
+        v1: i32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform3i)]
+    pub fn uniform_3i(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: i32,
+        v1: i32,
+        v2: i32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform4i)]
+    pub fn uniform_4i(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        v0: i32,
+        v1: i32,
+        v2: i32,
+        v3: i32,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform1fv)]
+    pub fn uniform_1fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform2fv)]
+    pub fn uniform_2fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform3fv)]
+    pub fn uniform_3fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform4fv)]
+    pub fn uniform_4fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform1iv)]
+    pub fn uniform_1iv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<i32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform2iv)]
+    pub fn uniform_2iv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<i32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform3iv)]
+    pub fn uniform_3iv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<i32>,
+    );
+
+    /// The `WebGLRenderingContext.uniform[1234][fi][v]()` methods of the WebGL API specify values of uniform variables.
+    #[wasm_bindgen(method, js_name = uniform4iv)]
+    pub fn uniform_4iv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        value: Vec<i32>,
+    );
+
+    /// The `WebGLRenderingContext.uniformMatrix[234]fv()` methods of the WebGL API specify matrix values for
+    /// uniform variables.
+    #[wasm_bindgen(method, js_name = uniformMatrix2fv)]
+    pub fn uniform_matrix_2fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        transpose: bool,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniformMatrix[234]fv()` methods of the WebGL API specify matrix values for
+    /// uniform variables.
+    #[wasm_bindgen(method, js_name = uniformMatrix3fv)]
+    pub fn uniform_matrix_3fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        transpose: bool,
+        value: Vec<f32>,
+    );
+
+    /// The `WebGLRenderingContext.uniformMatrix[234]fv()` methods of the WebGL API specify matrix values for
+    /// uniform variables.
+    #[wasm_bindgen(method, js_name = uniformMatrix4fv)]
+    pub fn uniform_matrix_4fv(
+        this: &WebGL2RenderingContext,
+        location: WebGLUniformLocation,
+        transpose: bool,
+        value: Vec<f32>,
+    );
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib1f)]
+    pub fn vertex_attrib_1f(this: &WebGL2RenderingContext, index: u32, v0: f32);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib2f)]
+    pub fn vertex_attrib_2f(this: &WebGL2RenderingContext, index: u32, v0: f32, v1: f32);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib3f)]
+    pub fn vertex_attrib_3f(this: &WebGL2RenderingContext, index: u32, v0: f32, v1: f32, v2: f32);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib4f)]
+    pub fn vertex_attrib_4f(
+        this: &WebGL2RenderingContext,
+        index: u32,
+        v0: f32,
+        v1: f32,
+        v2: f32,
+        v3: f32,
+    );
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib1fv)]
+    pub fn vertex_attrib_1fv(this: &WebGL2RenderingContext, index: u32, value: Vec<f32>);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib2fv)]
+    pub fn vertex_attrib_2fv(this: &WebGL2RenderingContext, index: u32, value: Vec<f32>);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib3fv)]
+    pub fn vertex_attrib_3fv(this: &WebGL2RenderingContext, index: u32, value: Vec<f32>);
+
+    /// The WebGLRenderingContext.vertexAttrib[1234]f[v]() methods of the WebGL API specify constant values for generic vertex attributes.
+    #[wasm_bindgen(method, js_name = vertexAttrib4fv)]
+    pub fn vertex_attrib_4fv(this: &WebGL2RenderingContext, index: u32, value: Vec<f32>);
+
+    /// The `WebGLRenderingContext.vertexAttribPointer()` method of the WebGL API binds the buffer currently
+    /// bound to gl.ARRAY_BUFFER to a generic vertex attribute of the current vertex buffer object and specifies
+    /// its layout.
+    #[wasm_bindgen(method, js_name = vertexAttribPointer)]
+    pub fn vertex_attrib_pointer(
+        this: &WebGL2RenderingContext,
+        index: u32,
+        size: AttributeSize,
+        attribute_type: AttributeType,
+        normalized: bool,
+        stride: u8,
+        offset: i32,
+    );
 }
 
 /// WebGLContextAttributes
@@ -739,4 +1028,16 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLShaderPrecisionFormat;
+}
+
+/// WebGLActiveInfo
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLActiveInfo;
+}
+
+/// WebGLUniformLocation
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLUniformLocation;
 }
