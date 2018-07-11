@@ -4,6 +4,8 @@
 extern crate glenum_bindgen;
 extern crate stdweb;
 extern crate wasm_bindgen;
+// FIXME: wasm_bindgen currently errors when trying to load exported bindings from other crates
+//extern crate webgl2_bindgen;
 
 pub mod graphics;
 pub mod math;

@@ -14,6 +14,7 @@ use wasm_bindgen::prelude::*;
 extern "C" {
     pub type HTMLDocument;
     static document: HTMLDocument;
+
     #[wasm_bindgen(method, js_name = getElementById)]
     fn get_element_by_id(this: &HTMLDocument, id: &str) -> HTMLCanvasElement;
 
@@ -64,6 +65,8 @@ extern "C" {
     /// the requested height.
     #[wasm_bindgen(method, getter = drawingBufferHeight)]
     pub fn drawing_buffer_height(this: &WebGL2RenderingContext) -> u32;
+
+    // WebGL1 methods
 
     /// The `WebGLRenderingContext.getContextAttributes()` method returns a `WebGLContextAttributes`
     /// object that contains the actual context parameters. Might return `null`, if the context is lost.
@@ -1013,6 +1016,84 @@ extern "C" {
     /// all commands to be executed as quickly as possible.
     #[wasm_bindgen(method)]
     pub fn flush(this: &WebGL2RenderingContext);
+
+    // WebGL2 methods
+
+    //TODO: getIndexedParameter
+
+    /// The `WebGL2RenderingContext.copyBufferSubData()` method of the WebGL 2 API copies part of the data of a
+    /// buffer to another buffer.
+    #[wasm_bindgen(method, js_name = copyBufferSubData)]
+    pub fn copy_buffer_sub_data(
+        this: &WebGL2RenderingContext,
+        readTarget: BufferKind,
+        writeTarget: BufferKind,
+        readOffset: i64,
+        writeOffset: i64,
+        size: u32,
+    );
+
+    /// The `WebGL2RenderingContext.getBufferSubData()` method of the WebGL 2 API reads data from a buffer binding
+    /// point and writes them to an ArrayBuffer or SharedArrayBuffer.
+    /// FIXME: dstData prob not correct type
+    #[wasm_bindgen(method, js_name = getBufferSubData)]
+    pub fn get_buffer_sub_data(
+        this: &WebGL2RenderingContext,
+        target: BufferKind,
+        srcByteOffset: i64,
+        dstData: Vec<u8>,
+        dstOffset: i64,
+        length: u32,
+    );
+
+    /// The `WebGL2RenderingContext.blitFramebuffer()` method of the WebGL 2 API transfers a block of pixels from the
+    /// read framebuffer to the draw framebuffer.
+    #[wasm_bindgen(method, js_name = blitFramebuffer)]
+    pub fn blit_framebuffer(
+        this: &WebGL2RenderingContext,
+        srcX0: i32,
+        srcY0: i32,
+        srcX1: i32,
+        srcY1: i32,
+        dstX0: i32,
+        dstY0: i32,
+        dstX1: i32,
+        dstY1: i32,
+        mask: BufferBit,
+        filter: TextureMagFilter,
+    );
+
+    /// The `WebGL2RenderingContext.framebufferTextureLayer()` method of the WebGL 2 API attaches a single layer
+    /// of a texture to a framebuffer.
+    ///
+    /// This method is similar to WebGLRenderingContext.framebufferTexture2D(), but only a given single layer of
+    /// the texture level is attached to the attachment point.
+    #[wasm_bindgen(method, js_name = framebufferTextureLayer)]
+    pub fn framebuffer_texture_layer(
+        this: &WebGL2RenderingContext,
+        target: FramebufferKind,
+        attachment: Attachment,
+        texture: WebGLTexture,
+        level: i32,
+        layer: i32,
+    );
+
+    /// The `WebGL2RenderingContext.invalidateFramebuffer()` method of the WebGL 2 API invalidates the contents
+    /// of attachments in a framebuffer.
+    /* FIXME: currently not supported by wasm_bindgen
+    #[wasm_bindgen(method, js_name = invalidateFramebuffer)]
+    pub fn invalidate_framebuffer(
+        this: &WebGL2RenderingContext,
+        target: FramebufferKind,
+        attachments: &[Attachment],
+    );*/
+
+    //FIXME: invalidateSubFramebuffer same issue as invalidateFramebuffer
+
+    /// The `WebGL2RenderingContext.readBuffer()` method of the WebGL 2 API selects a color buffer as the source
+    /// for pixels for subsequent calls to copyTexImage2D, copyTexSubImage2D, copyTexSubImage3D or readPixels.
+    #[wasm_bindgen(method, js_name = readBuffer)]
+    pub fn read_buffer(this: &WebGL2RenderingContext, src: ColorBuffer);
 }
 
 /// WebGLContextAttributes
