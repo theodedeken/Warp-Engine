@@ -980,6 +980,39 @@ extern "C" {
         stride: u8,
         offset: i32,
     );
+
+    /// The `WebGLRenderingContext.clear()` method of the WebGL API clears buffers to preset values.
+    ///
+    /// The preset values can be set by clearColor(), clearDepth() or clearStencil().
+    ///
+    /// The scissor box, dithering, and buffer writemasks can affect the clear() method.
+    #[wasm_bindgen(method)]
+    pub fn clear(this: &WebGL2RenderingContext, mask: BufferBit);
+
+    /// The `WebGLRenderingContext.drawArrays()` method of the WebGL API renders primitives from array data.
+    #[wasm_bindgen(method, js_name = drawArrays)]
+    pub fn draw_arrays(this: &WebGL2RenderingContext, mode: Primitives, first: u32, count: u32);
+
+    /// The `WebGLRenderingContext.drawElements()` method of the WebGL API renders primitives from array data.
+    // FIXME: datatype enum has elements that can provoke errors
+    #[wasm_bindgen(method, js_name = drawElements)]
+    pub fn draw_elements(
+        this: &WebGL2RenderingContext,
+        mode: Primitives,
+        count: u32,
+        data_type: DataType,
+        offset: i64,
+    );
+
+    /// The `WebGLRenderingContext.finish()` method of the WebGL API blocks execution until all previously
+    /// called commands are finished.
+    #[wasm_bindgen(method)]
+    pub fn finish(this: &WebGL2RenderingContext);
+
+    /// The `WebGLRenderingContext.flush()` method of the WebGL API empties different buffer commands, causing
+    /// all commands to be executed as quickly as possible.
+    #[wasm_bindgen(method)]
+    pub fn flush(this: &WebGL2RenderingContext);
 }
 
 /// WebGLContextAttributes
