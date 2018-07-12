@@ -1084,3 +1084,30 @@ pub enum InformationType {
     /// Returns a Int32Array containing sample counts supported for internalformat in descending order.
     Samples = 0x80A9,
 }
+
+/// Constants passed to beginQuery
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum QueryTarget {
+    /// Specifies an occlusion query: these queries detect whether an object is visible (whether the scoped drawing commands pass the depth test and if so, how many samples pass).
+    AnySamplesPassed = 0x8C2F,
+    /// Same as above above, but less accurate and faster version.
+    AnySamplesPassedConservative = 0x8D6A,
+    /// Number of primitives that are written to transform feedback buffers.
+    TransformFeedbackPrimitivesWritten = 0x8C88,
+}
+
+/// Constants passed to getQuery
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum Query {
+    Current = 0x8865,
+}
+
+/// Constants passed to getQueryParameter
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum QueryParameter {
+    Result = 0x8866,
+    ResultAvailable = 0x8867,
+}
