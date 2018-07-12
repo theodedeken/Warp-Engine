@@ -4,6 +4,8 @@
 //! and https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext
 #![feature(proc_macro, wasm_custom_section, wasm_import_module)]
 
+//TODO: arraybufferview as enum and impl method to map to different functions
+
 extern crate glenum_bindgen;
 extern crate wasm_bindgen;
 
@@ -1094,6 +1096,113 @@ extern "C" {
     /// for pixels for subsequent calls to copyTexImage2D, copyTexSubImage2D, copyTexSubImage3D or readPixels.
     #[wasm_bindgen(method, js_name = readBuffer)]
     pub fn read_buffer(this: &WebGL2RenderingContext, src: ColorBuffer);
+
+    /// The `WebGL2RenderingContext.getInternalformatParameter()` method of the WebGL 2 API returns information
+    /// about implementation-dependent support for internal formats.
+    /// FIXME: not sure about internal_format enum
+    #[wasm_bindgen(method, js_name = getInternalformatParameter)]
+    pub fn get_internal_format_parameter(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        internal_format: RenderbufferFormat,
+        pname: InformationType,
+    ) -> Vec<i32>;
+
+    /// The `WebGL2RenderingContext.renderbufferStorageMultisample()` method of the WebGL 2 API returns creates
+    /// and initializes a renderbuffer object's data store and allows specifying a number of samples to be used.
+    #[wasm_bindgen(method, js_name = renderbufferStorageMultisample)]
+    pub fn renderbuffer_storage_multisample(
+        this: &WebGL2RenderingContext,
+        target: RenderbufferKind,
+        samples: u32,
+        internal_format: RenderbufferFormat,
+        width: u32,
+        height: u32,
+    );
+
+    /// The `WebGL2RenderingContext.texStorage2D()` method of the WebGL API specifies all levels of two-dimensional
+    /// texture storage.
+    /// FIXME: revisit internal format
+    #[wasm_bindgen(method, js_name = texStorage2D)]
+    pub fn tex_storage_2d(
+        this: &WebGL2RenderingContext,
+        target: Texture2DKind,
+        levels: u32,
+        internal_format: RenderbufferFormat,
+        width: u32,
+        height: u32,
+    );
+
+    /// The `WebGL2RenderingContext.texStorage3D()` method of the WebGL API specifies all levels of a three-dimensional
+    /// texture or two-dimensional array texture.
+    /// FIXME: revisit internal format
+    #[wasm_bindgen(method, js_name = texStorage3D)]
+    pub fn tex_storage_3d(
+        this: &WebGL2RenderingContext,
+        target: Texture3DKind,
+        levels: u32,
+        internalformat: RenderbufferFormat,
+        width: u32,
+        height: u32,
+        depth: u32,
+    );
+
+    /// The `WebGLRenderingContext.texImage3D()` method of the WebGL API specifies a three-dimensional texture image.
+    /// FIXME: revisit internalformat, format, data_type
+    /// FIXME: border is always 0
+    /// FIXME: different src types
+    #[wasm_bindgen(method, js_name = texImage3D)]
+    pub fn tex_image_3d(
+        this: &WebGL2RenderingContext,
+        target: Texture3DKind,
+        level: u32,
+        internalformat: RenderbufferFormat,
+        width: u32,
+        height: u32,
+        depth: u32,
+        border: u32,
+        format: RenderbufferFormat,
+        data_type: RenderbufferFormat,
+        srcData: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    /// The `WebGL2RenderingContext.texSubImage3D()` method of the WebGL API specifies a sub-rectangle of the current texture.
+    /// FIXME: revisit format, data_type
+    /// FIXME: srcdata more types
+    #[wasm_bindgen(method, js_name = texSubImage3D)]
+    pub fn tex_sub_image_3d(
+        this: &WebGL2RenderingContext,
+        target: Texture3DKind,
+        level: u32,
+        xoffset: u32,
+        yoffset: u32,
+        zoffset: u32,
+        width: u32,
+        height: u32,
+        depth: u32,
+        format: RenderbufferFormat,
+        data_type: RenderbufferFormat,
+        srcData: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    /// The `WebGL2RenderingContext.copyTexSubImage3D()` method of the WebGL API copies pixels from the current WebGLFramebuffer
+    /// into an existing 3D texture sub-image.
+    #[wasm_bindgen(method, js_name = copyTexSubImage3D)]
+    pub fn copy_tex_sub_image_3d(
+        this: &WebGL2RenderingContext,
+        target: Texture3DKind,
+        level: u32,
+        xoffset: u32,
+        yoffset: u32,
+        zoffset: u32,
+        x: u32,
+        y: u32,
+        width: u32,
+        height: u32,
+    );
+
 }
 
 /// WebGLContextAttributes

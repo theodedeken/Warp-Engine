@@ -608,6 +608,26 @@ pub enum TextureKind {
     Texture2dArray = 0x8C1A,
 }
 
+/// WebGLRenderingContext.texStorage2D() `target` parameter
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum Texture2DKind {
+    ///
+    Texture2d = 0x0DE1,
+    ///
+    TextureCubeMap = 0x8513,
+}
+
+/// WebGLRenderingContext.texStorage3D() `target` parameter
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum Texture3DKind {
+    /// A three-dimensional texture.
+    Texture3d = 0x806F,
+    /// A two-dimensional array texture.
+    Texture2dArray = 0x8C1A,
+}
+
 /// WebGLRenderingContext.texParameter[fi]() "pname" parameter
 #[wasm_bindgen]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
@@ -1055,4 +1075,12 @@ pub enum ColorBuffer {
     ColorAttachment13 = 0x8CED,
     ColorAttachment14 = 0x8CEE,
     ColorAttachment15 = 0x8CEF,
+}
+
+/// Constants passed to getInternalformatParameter
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum InformationType {
+    /// Returns a Int32Array containing sample counts supported for internalformat in descending order.
+    Samples = 0x80A9,
 }
