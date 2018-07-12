@@ -1399,6 +1399,105 @@ extern "C" {
         stride: u32,
         offset: i64,
     );
+
+    /// The `WebGL2RenderingContext.vertexAttribDivisor()` method of the WebGL 2 API modifies the rate at which generic
+    /// vertex attributes advance when rendering multiple instances of primitives with gl.drawArraysInstanced() and gl.drawElementsInstanced().
+    #[wasm_bindgen(method, js_name = vertexAttribDivisor)]
+    pub fn vertex_attrib_divisor(this: &WebGL2RenderingContext, index: u32, divisor: u32);
+
+    /// The `WebGL2RenderingContext.drawArraysInstanced()` method of the WebGL 2 API renders primitives from array data like the gl.drawArrays()
+    /// method. In addition, it can execute multiple instances of the range of elements.
+    #[wasm_bindgen(method, js_name = drawArraysInstanced)]
+    pub fn draw_arrays_instanced(
+        this: &WebGL2RenderingContext,
+        mode: Primitives,
+        first: i32,
+        count: u32,
+        instanceCount: u32,
+    );
+
+    /// The `WebGL2RenderingContext.drawElementsInstanced()` method of the WebGL 2 API renders primitives from array data like the gl.drawElements()
+    /// method. In addition, it can execute multiple instances of a set of elements.
+    /// FIXME: revisit data_type
+    #[wasm_bindgen(method, js_name = drawElementsInstanced)]
+    pub fn draw_elements_instanced(
+        this: &WebGL2RenderingContext,
+        mode: Primitives,
+        count: u32,
+        data_type: AttributeType,
+        offset: i64,
+        instanceCount: u32,
+    );
+
+    /// The `WebGL2RenderingContext.drawRangeElements()` method of the WebGL API renders primitives from array data in a given range.
+    /// FIXME: revisit data_type
+    #[wasm_bindgen(method, js_name = drawRangeElements)]
+    pub fn draw_range_elements(
+        this: &WebGL2RenderingContext,
+        mode: Primitives,
+        start: u32,
+        end: u32,
+        count: u32,
+        data_type: AttributeType,
+        offset: i64,
+    );
+
+    /// The `WebGL2RenderingContext.drawBuffers()` method of the WebGL 2 API defines draw buffers to which fragment
+    /// colors are written into. The draw buffer settings are part of the state of the currently bound framebuffer
+    /// or the drawingbuffer if no framebuffer is bound.
+    /* FIXME: currently wasm_bindgen doesn not support Vec<T>
+    #[wasm_bindgen(method, js_name = drawBuffers)]
+    pub fn draw_buffers(this: &WebGL2RenderingContext, buffers: Vec<ColorBuffer>);
+    */
+
+    /// The `WebGL2RenderingContext.clearBuffer[fiuv]()` methods of the WebGL 2 API clear buffers from the currently
+    /// bound framebuffer.
+    /// FIXME values is array of rgba
+    #[wasm_bindgen(method, js_name = clearBufferfv)]
+    pub fn clear_buffer_fv(
+        this: &WebGL2RenderingContext,
+        buffer: BufferBit,
+        drawbuffer: i32,
+        values: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    /// The `WebGL2RenderingContext.clearBuffer[fiuv]()` methods of the WebGL 2 API clear buffers from the currently
+    /// bound framebuffer.
+    /// FIXME values is array of rgba
+    #[wasm_bindgen(method, js_name = clearBufferiv)]
+    pub fn clear_buffer_iv(
+        this: &WebGL2RenderingContext,
+        buffer: BufferBit,
+        drawbuffer: i32,
+        values: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    /// The `WebGL2RenderingContext.clearBuffer[fiuv]()` methods of the WebGL 2 API clear buffers from the currently
+    /// bound framebuffer.
+    /// FIXME values is array of rgba
+    #[wasm_bindgen(method, js_name = clearBufferuiv)]
+    pub fn clear_buffer_uiv(
+        this: &WebGL2RenderingContext,
+        buffer: BufferBit,
+        drawbuffer: i32,
+        values: Vec<u8>,
+        srcOffset: u32,
+    );
+
+    /// The `WebGL2RenderingContext.clearBuffer[fiuv]()` methods of the WebGL 2 API clear buffers from the currently
+    /// bound framebuffer.
+    /// FIXME buffer can only be DEPTH_STENCIL
+    #[wasm_bindgen(method, js_name = clearBufferfv)]
+    pub fn clear_buffer_fi(
+        this: &WebGL2RenderingContext,
+        buffer: BufferBit,
+        drawbuffer: i32,
+        depth: f32,
+        stencil: i32,
+    );
+
 }
 
 /// WebGLContextAttributes
