@@ -1111,3 +1111,24 @@ pub enum QueryParameter {
     Result = 0x8866,
     ResultAvailable = 0x8867,
 }
+
+/// Constants passed to fenceSync
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum GPUState {
+    CommandsComplete = 0x9117,
+}
+
+/// Constants passed to clientWaitSync
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum SyncStatus {
+    /// Indicates that the sync object was signaled when this method was called.
+    AlreadySignaled = 0x911A,
+    /// Indicates that the timeout time passed and that the sync object did not become signaled.
+    TimeoutExpired = 0x911B,
+    /// Indicates that the sync object was signaled before the timeout expired.
+    ConditionSatisfied = 0x911C,
+    /// Indicates that an error occurred during the execution.
+    WaitFailed = 0x911D,
+}
