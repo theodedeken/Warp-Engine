@@ -1547,6 +1547,25 @@ extern "C" {
         pname: QueryParameter,
     ) -> u32;
 
+    /// The `WebGL2RenderingContext.createSampler()` method of the WebGL 2 API creates and initializes
+    /// WebGLSampler objects.
+    #[wasm_bindgen(method, js_name = createSampler)]
+    pub fn create_sampler(this: &WebGL2RenderingContext) -> WebGLSampler;
+
+    /// The `WebGL2RenderingContext.deleteSampler()` method of the WebGL 2 API deletes a given WebGLSampler
+    /// object.
+    #[wasm_bindgen(method, js_name = deleteSampler)]
+    pub fn delete_sampler(this: &WebGL2RenderingContext, sampler: WebGLSampler);
+
+    /// The `WebGL2RenderingContext.bindSampler()` method of the WebGL 2 API binds a passed WebGLSampler object to
+    /// the texture unit at the passed index.
+    #[wasm_bindgen(method, js_name = bindSampler)]
+    pub fn bind_sampler(this: &WebGL2RenderingContext, unit: u32, sampler: WebGLSampler);
+
+    /// The WebGL2RenderingContext.isSampler() method of the WebGL 2 API returns true if the passed object is a valid
+    /// WebGLSampler object.
+    #[wasm_bindgen(method, js_name = isSampler)]
+    pub fn is_sampler(this: &WebGL2RenderingContext, sampler: WebGLSampler);
 }
 
 /// WebGLContextAttributes
@@ -1613,4 +1632,10 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLQuery;
+}
+
+/// WebGLSampler
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLSampler;
 }
