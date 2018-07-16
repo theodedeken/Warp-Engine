@@ -1602,7 +1602,76 @@ extern "C" {
     #[wasm_bindgen(method, js_name = waitSync)]
     pub fn wait_sync(this: &WebGL2RenderingContext, sync: WebGLSync, flags: u32, timeout: i64);
 
-//TODO: getSyncParameter
+    //TODO: getSyncParameter
+
+    /// The `WebGL2RenderingContext.createTransformFeedback()` method of the WebGL 2 API creates and initializes
+    /// WebGLTransformFeedback objects.
+    #[wasm_bindgen(method, js_name = createTransformFeedback)]
+    pub fn create_transform_feedback(this: &WebGL2RenderingContext) -> WebGLTransformFeedback;
+
+    /// The `WebGL2RenderingContext.deleteTransformFeedback()` method of the WebGL 2 API deletes a given WebGLTransformFeedback
+    /// object.
+    #[wasm_bindgen(method, js_name = deleteTransformFeedback)]
+    pub fn delete_transform_feedback(
+        this: &WebGL2RenderingContext,
+        transform_feedback: WebGLTransformFeedback,
+    );
+
+    /// The `WebGL2RenderingContext.isTransformFeedback()` method of the WebGL 2 API returns true if the passed object is a
+    /// valid WebGLTransformFeedback object.
+    #[wasm_bindgen(method, js_name = isTransformFeedback)]
+    pub fn is_transform_feedback(
+        this: &WebGL2RenderingContext,
+        transform_feedback: WebGLTransformFeedback,
+    ) -> bool;
+
+    /// The `WebGL2RenderingContext.bindTransformFeedback()` method of the WebGL 2 API binds a passed WebGLTransformFeedback
+    /// object to the current GL state.
+    #[wasm_bindgen(method, js_name = bindTransformFeedback)]
+    pub fn bind_transform_feedback(
+        this: &WebGL2RenderingContext,
+        target: TransformFeedback,
+        transform_feedback: WebGLTransformFeedback,
+    );
+
+    /// The WebGL2RenderingContext.beginTransformFeedback() method of the WebGL 2 API starts a transform feedback operation.
+    #[wasm_bindgen(method, js_name = beginTransformFeedback)]
+    pub fn begin_transform_feedback(
+        this: &WebGL2RenderingContext,
+        primitive_mode: TransformFeedbackMode,
+    );
+
+    /// The WebGL2RenderingContext.endTransformFeedback() method of the WebGL 2 API ends a transform feedback operation.
+    #[wasm_bindgen(method, js_name = endTransformFeedback)]
+    pub fn end_transform_feedback(this: &WebGL2RenderingContext);
+
+    /// The `WebGL2RenderingContext.transformFeedbackVaryings()` method of the WebGL 2 API specifies values to record in
+    /// WebGLTransformFeedback buffers.
+    /* FIXME: Vec of string currently not supported by wasm_bindgen
+    #[wasm_bindgen(method, js_name = transformFeedbackVaryings)]
+    pub fn transform_feedback_varyings(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        varyings: Vec<String>,
+        buffer_mode: TransformFeedbackBufferMode,
+    );*/
+
+    /// The `WebGL2RenderingContext.getTransformFeedbackVarying()` method of the WebGL 2 API returns information about varying
+    /// variables from WebGLTransformFeedback buffers.
+    #[wasm_bindgen(method, js_name = getTransfromFeedbackVarying)]
+    pub fn get_transform_feedback_varying(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        index: u32,
+    ) -> WebGLActiveInfo;
+
+    /// The WebGL2RenderingContext.pauseTransformFeedback() method of the WebGL 2 API pauses a transform feedback operation.
+    #[wasm_bindgen(method, js_name = pauseTransformFeedback)]
+    pub fn pause_transform_feedback(this: &WebGL2RenderingContext);
+
+    /// The WebGL2RenderingContext.resumeTransformFeedback() method of the WebGL 2 API resumes a transform feedback operation.
+    #[wasm_bindgen(method, js_name = resumeTransformFeedback)]
+    pub fn resume_transform_feedback(this: &WebGL2RenderingContext);
 }
 
 /// WebGLContextAttributes
@@ -1681,4 +1750,10 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLSync;
+}
+
+/// WebGLTransformFeedback
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLTransformFeedback;
 }

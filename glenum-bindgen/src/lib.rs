@@ -1132,3 +1132,30 @@ pub enum SyncStatus {
     /// Indicates that an error occurred during the execution.
     WaitFailed = 0x911D,
 }
+
+/// Constant passed to bindTransformFeedback
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum TransformFeedback {
+    TransformFeedback = 0x8E22,
+}
+
+/// Passed to beginTransformFeedback.
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum TransformFeedbackMode {
+    /// Passed to drawElements or drawArrays to draw single points.
+    Points = 0x0000,
+    /// Passed to drawElements or drawArrays to draw lines. Each vertex connects to the one after it.
+    Lines = 0x0001,
+    /// Passed to drawElements or drawArrays to draw triangles. Each set of three vertices creates a separate triangle.
+    Triangles = 0x0004,
+}
+
+/// Passed to transformFeedbackVaryings.
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum TransformFeedbackBufferMode {
+    InterleavedAttribs = 0x8C8C,
+    SeparateAttribs = 0x8C8D,
+}
