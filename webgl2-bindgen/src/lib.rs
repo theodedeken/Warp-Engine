@@ -1760,6 +1760,22 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLContextAttributes;
+    #[wasm_bindgen(method, getter)]
+    pub fn alpha(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter)]
+    pub fn antialias(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter)]
+    pub fn depth(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter = premultipliedAlpha)]
+    pub fn premultiplied_alpha(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter = preserveDrawingBuffer)]
+    pub fn preserve_drawing_buffer(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter)]
+    pub fn stencil(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter = failIfMajorPerformanceCaveat )]
+    pub fn fail_if_major_performance_caveat(this: &WebGLContextAttributes) -> bool;
+    #[wasm_bindgen(method, getter = powerPreference)]
+    pub fn power_preference(this: &WebGLContextAttributes) -> String;
 }
 
 /// WebGLBuffer
@@ -1802,12 +1818,36 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLShaderPrecisionFormat;
+
+    /// The base 2 log of the absolute value of the minimum value that can be represented.
+    #[wasm_bindgen(method, getter = rangeMin)]
+    pub fn range_min(this: &WebGLShaderPrecisionFormat) -> u32;
+
+    /// The base 2 log of the absolute value of the maximum value that can be represented.
+    #[wasm_bindgen(method, getter = rangeMax)]
+    pub fn range_max(this: &WebGLShaderPrecisionFormat) -> u32;
+
+    /// The number of bits of precision that can be represented. For integer formats this value is always 0.
+    #[wasm_bindgen(method, getter)]
+    pub fn precision(this: &WebGLShaderPrecisionFormat) -> u32;
 }
 
 /// WebGLActiveInfo
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLActiveInfo;
+
+    /// The read-only name of the requested variable.
+    #[wasm_bindgen(method, getter)]
+    pub fn name(this: &WebGLActiveInfo) -> String;
+
+    /// The read-only size of the requested variable.
+    #[wasm_bindgen(method, getter)]
+    pub fn size(this: &WebGLActiveInfo) -> u32;
+
+    /// The read-only type of the requested variable.
+    #[wasm_bindgen(method, getter = type)]
+    pub fn data_type(this: &WebGLActiveInfo) -> u32;
 }
 
 /// WebGLUniformLocation
