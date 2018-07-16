@@ -9,4 +9,5 @@ crate-type = ["cdylib"]
 [dependencies]
 wasm-bindgen = "0.2.11"
 stdweb = "0.4.6"
-glenum-bind = { path = "../glenum-bind" }
+glenum-bindgen = { path = "../glenum-bindgen" }
+webgl2-bindgen = { path = "../webgl2-bindgen" }

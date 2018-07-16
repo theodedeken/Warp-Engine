@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
-    "glenum-bind",
+    "glenum-bindgen",
     "warp-engine",
+    "webgl2-bindgen",
 ]

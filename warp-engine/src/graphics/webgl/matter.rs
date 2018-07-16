@@ -1,4 +1,4 @@
-use glenum_bind::{BufferKind, DrawMode};
+use glenum_bindgen::{BufferKind, DataHint};
 use graphics::webgl::buffer::Buffer;
 use graphics::webgl::context::WebGLContext;
 use util::IntoBytes;
@@ -14,9 +14,9 @@ pub struct Matter {
 impl Matter {
     pub fn new(context: &WebGLContext, vertices: Vec<f32>, indices: Vec<u16>) -> Matter {
         let vertex_buffer = Buffer::new(context, BufferKind::Array);
-        vertex_buffer.load_data(&vertices.into_bytes(), DrawMode::Static);
+        vertex_buffer.load_data(&vertices.into_bytes(), DataHint::StaticDraw);
         let index_buffer = Buffer::new(context, BufferKind::ElementArray);
-        index_buffer.load_data(&indices.into_bytes(), DrawMode::Static);
+        index_buffer.load_data(&indices.into_bytes(), DataHint::StaticDraw);
 
         Matter {
             context: context.clone(),

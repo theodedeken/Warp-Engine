@@ -1,4 +1,4 @@
-use glenum_bind::ShaderKind;
+use glenum_bindgen::ShaderKind;
 use graphics::webgl::context::WebGLContext;
 use stdweb::{Reference, __js_raw_asm, _js_impl, js};
 use wasm_bindgen::prelude::*;

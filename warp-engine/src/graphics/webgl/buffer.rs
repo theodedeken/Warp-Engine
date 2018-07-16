@@ -1,4 +1,4 @@
-use glenum_bind::{BufferKind, DrawMode};
+use glenum_bindgen::{BufferKind, DataHint};
 use graphics::webgl::context::WebGLContext;
 use stdweb::web::TypedArray;
 use stdweb::{Reference, __js_raw_asm, _js_impl, js};
@@ -24,7 +24,7 @@ impl Buffer {
         }
     }
 
-    pub fn load_data(&self, data: &[u8], draw_mode: DrawMode) {
+    pub fn load_data(&self, data: &[u8], draw_mode: DataHint) {
         js! {
             (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},@{&self.reference});
             (@{self.context.get_reference()}).bufferData(@{self.kind as u32},@{TypedArray::from(data)}, @{draw_mode as u32});
