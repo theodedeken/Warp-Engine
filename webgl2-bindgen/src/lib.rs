@@ -34,12 +34,27 @@ impl WebGL2RenderingContext {
 
     /// Maps to `get_buffer_parameter` when return type is `i32`
     pub fn get_buffer_size(&self, target: BufferKind) -> i32 {
-        self.get_buffer_parameter_size(target, BufferParameter::Size)
+        self._get_buffer_size(target, BufferParameter::Size)
     }
 
     /// Maps to `get_buffer_parameter` when return type is `DataHint`
     pub fn get_buffer_usage(&self, target: BufferKind) -> DataHint {
-        self.get_buffer_parameter_usage(target, BufferParameter::Usage)
+        self._get_buffer_usage(target, BufferParameter::Usage)
+    }
+
+    /// Maps to `get_renderbuffer_parameter` when the parameter is format. This way the constant attribute pname does not need to be given.
+    pub fn get_renderbuffer_format(&self, target: RenderbufferKind) -> RenderbufferFormat {
+        self._get_renderbuffer_format(target, 0x8D44)
+    }
+
+    /// Maps to `WebGL2RenderingContext.getQueryParameter()` when pname equals QUERY_RESULT_AVAILABLE
+    pub fn get_query_status(self, query: WebGLQuery) -> bool {
+        self._get_query_status(query, QueryParameter::ResultAvailable)
+    }
+
+    /// Maps to `WebGL2RenderingContext.getQueryParameter()` when pname equals QUERY_RESULT
+    pub fn get_query_result(&self, query: WebGLQuery) -> u32 {
+        self._get_query_result(query, QueryParameter::Result)
     }
 }
 
@@ -355,13 +370,13 @@ extern "C" {
 
     /// The `WebGLRenderingContext.getBufferParameter()` method of the WebGL API returns information about the buffer.
     #[wasm_bindgen(method, js_name = getBufferParameter)]
-    fn get_buffer_parameter_size(
+    fn _get_buffer_size(
         this: &WebGL2RenderingContext,
         target: BufferKind,
         pname: BufferParameter,
     ) -> i32;
     #[wasm_bindgen(method, js_name = getBufferParameter)]
-    fn get_buffer_parameter_usage(
+    fn _get_buffer_usage(
         this: &WebGL2RenderingContext,
         target: BufferKind,
         pname: BufferParameter,
@@ -470,9 +485,8 @@ extern "C" {
         target: RenderbufferKind,
         pname: RenderbufferParameter,
     ) -> i32;
-    // TODO add pub method get_renderbuffer_format to call this function
     #[wasm_bindgen(method, js_name = getRenderbufferParameter)]
-    fn get_renderbuffer_parameter_format(
+    fn _get_renderbuffer_format(
         this: &WebGL2RenderingContext,
         target: RenderbufferKind,
         pname: i32,
@@ -1533,15 +1547,14 @@ extern "C" {
 
     /// The `WebGL2RenderingContext.getQueryParameter()` method of the WebGL 2 API returns parameter information
     /// of a WebGLQuery object
-    /// TODO: pub method get_query_status, get_query_result.
     #[wasm_bindgen(method, js_name = getQueryParameter)]
-    fn get_query_parameter_bool(
+    fn _get_query_status(
         this: &WebGL2RenderingContext,
         query: WebGLQuery,
         pname: QueryParameter,
     ) -> bool;
     #[wasm_bindgen(method, js_name = getQueryParameter)]
-    fn get_query_parameter_u32(
+    fn _get_query_result(
         this: &WebGL2RenderingContext,
         query: WebGLQuery,
         pname: QueryParameter,
