@@ -1,3 +1,5 @@
+//! COPY of file in crate webgl2_bindgen, currently necessary to make the bindings work.
+//!
 //! Bindings for all objects and method associated with WebGL2
 //!
 //! Documentation taken straight from https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
