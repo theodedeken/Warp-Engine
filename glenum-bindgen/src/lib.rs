@@ -1159,3 +1159,13 @@ pub enum TransformFeedbackBufferMode {
     InterleavedAttribs = 0x8C8C,
     SeparateAttribs = 0x8C8D,
 }
+
+/// Passed to bindBufferBase
+#[wasm_bindgen]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub enum BufferBase {
+    /// Buffer for transform feedback operations.
+    TransformFeedbackBuffer = 0x8C8E,
+    /// Buffer used for storing uniform blocks.
+    UniformBuffer = 0x8A11,
+}

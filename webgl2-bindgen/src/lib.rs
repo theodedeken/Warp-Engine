@@ -1672,6 +1672,67 @@ extern "C" {
     /// The WebGL2RenderingContext.resumeTransformFeedback() method of the WebGL 2 API resumes a transform feedback operation.
     #[wasm_bindgen(method, js_name = resumeTransformFeedback)]
     pub fn resume_transform_feedback(this: &WebGL2RenderingContext);
+
+    /// The `WebGL2RenderingContext.bindBufferBase()` method of the WebGL 2 API binds a given WebGLBuffer to a given binding
+    /// point (target) at a given index.
+    #[wasm_bindgen(method, js_name = bindBufferBase)]
+    pub fn bind_buffer_base(
+        this: &WebGL2RenderingContext,
+        target: BufferBase,
+        index: u32,
+        buffer: WebGLBuffer,
+    );
+
+    /// The `WebGL2RenderingContext.bindBufferRange()` method of the WebGL 2 API binds a range of a given WebGLBuffer to a given
+    /// binding point (target) at a given index.
+    #[wasm_bindgen(method, js_name = bindBufferRange)]
+    pub fn bind_buffer_range(
+        this: &WebGL2RenderingContext,
+        target: BufferBase,
+        index: u32,
+        buffer: WebGLBuffer,
+        offset: u32,
+        size: u32,
+    );
+
+    /// The `WebGL2RenderingContext.getUniformIndices()` method of the WebGL 2 API retrieves the indices of a number of uniforms
+    /// within a WebGLProgram.
+    /* FIXME: vec<string> not yet supported
+    #[wasm_bindgen(method, js_name = getUniformIndices)]
+    pub fn get_uniform_indices(this: &WebGL2RenderingContext, program: WebGLProgram, uniformNames: Vec<String>);
+    */
+
+    // TODO getActiveUniforms
+
+    /// The `WebGL2RenderingContext.getUniformBlockIndex()` method of the WebGL 2 API retrieves the index of a uniform block
+    /// within a WebGLProgram.
+    #[wasm_bindgen(method, js_name = getUniformBlockIndex)]
+    pub fn get_uniform_block_index(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        uniform_block_name: &str,
+    ) -> u32;
+
+    // TODO getAcitveUniformBlockParameter
+
+    /// The `WebGL2RenderingContext.getActiveUniformBlockName()` method of the WebGL 2 API retrieves the name of the active
+    /// uniform block at a given index within a WebGLProgram.
+    #[wasm_bindgen(method, js_name = getActiveUniformBlockName)]
+    pub fn get_active_uniform_block_name(
+        this: &WebGL2RenderingContext,
+        program: WebGLProgram,
+        uniform_block_index: u32,
+    ) -> String;
+
+    /// The `WebGL2RenderingContext.uniformBlockBinding()` method of the WebGL 2 API assigns binding points for active
+    /// uniform blocks.
+    #[wasm_bindgen(method, js_name = uniformBlockBinding)]
+    pub fn uniform_block_binding(
+        this: &WebGL2RenderingContext,
+        program: WebGL2RenderingContext,
+        uniform_block_index: u32,
+        uniform_block_binding: u32,
+    );
 }
 
 /// WebGLContextAttributes
