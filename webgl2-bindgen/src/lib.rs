@@ -1733,6 +1733,27 @@ extern "C" {
         uniform_block_index: u32,
         uniform_block_binding: u32,
     );
+
+    /// The `WebGL2RenderingContext.createVertexArray()` method of the WebGL 2 API creates and initializes a
+    /// WebGLVertexArrayObject object that represents a vertex array object (VAO) pointing to vertex array
+    /// data and which provides names for different sets of vertex data.
+    #[wasm_bindgen(method, js_name = createVertexArray)]
+    pub fn create_vertex_array(this: &WebGL2RenderingContext) -> WebGLVertexArrayObject;
+
+    /// The `WebGL2RenderingContext.deleteVertexArray()` method of the WebGL 2 API deletes a given WebGLVertexArrayObject
+    /// object.
+    #[wasm_bindgen(method, js_name = deleteVertexArray)]
+    pub fn delete_vertex_array(this: &WebGL2RenderingContext, vertex_array: WebGLVertexArrayObject);
+
+    /// The `WebGL2RenderingContext.isVertexArray()` method of the WebGL API returns true if the passed object is a valid
+    /// WebGLVertexArrayObject object.
+    #[wasm_bindgen(method, js_name = isVertexArray)]
+    pub fn is_vertex_array(this: &WebGL2RenderingContext, vertex_array: WebGLVertexArrayObject);
+
+    /// The `WebGL2RenderingContext.bindVertexArray()` method of the WebGL 2 API binds a passed WebGLVertexArrayObject
+    /// object to the buffer.
+    #[wasm_bindgen(method, js_name = bindVertexArray)]
+    pub fn bind_vertex_array(this: &WebGL2RenderingContext, vertex_array: WebGLVertexArrayObject);
 }
 
 /// WebGLContextAttributes
@@ -1817,4 +1838,10 @@ extern "C" {
 #[wasm_bindgen]
 extern "C" {
     pub type WebGLTransformFeedback;
+}
+
+/// WebGLVertexArrayObject
+#[wasm_bindgen]
+extern "C" {
+    pub type WebGLVertexArrayObject;
 }
