@@ -1,38 +1,31 @@
-use graphics::webgl::{context::WebGLContext, shader::Shader};
-use stdweb::{js, Reference, __js_raw_asm, _js_impl};
+use bindings::{WebGL2RenderingContext, WebGLProgram};
+use graphics::webgl::shader::Shader;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct Program {
-    reference: Reference,
-    context: WebGLContext,
+    context: WebGL2RenderingContext,
+    program: WebGLProgram,
     vertex_shader: Shader,
     fragment_shader: Shader,
 }
 
 #[wasm_bindgen]
 impl Program {
-    pub fn new(context: &WebGLContext, vertex_shader: Shader, fragment_shader: Shader) -> Program {
-        let context = context.clone();
-        let value = js! {(@{context.get_reference()}).createProgram();};
-        let reference = value.into_reference().unwrap();
-        js! {@(no_return)
-            (@{context.get_reference()}).attachShader(@{&reference},@{vertex_shader.get_reference()})
-            (@{context.get_reference()}).attachShader(@{&reference},@{fragment_shader.get_reference()})
-        };
-
-        js! {@(no_return) (@{context.get_reference()}).linkProgram(@{&reference})};
+    pub fn new(
+        context: WebGL2RenderingContext,
+        vertex_shader: Shader,
+        fragment_shader: Shader,
+    ) -> Program {
+        let program = context.create_program();
+        context.attach_shader(&program, vertex_shader.shader());
+        context.attach_shader(&program, fragment_shader.shader());
+        context.link_program(&program);
         Program {
-            reference,
             context,
+            program,
             vertex_shader,
             fragment_shader,
         }
-    }
-}
-
-impl Program {
-    pub fn get_reference(&self) -> &Reference {
-        &self.reference
     }
 }

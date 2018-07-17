@@ -1,38 +1,41 @@
+use super::context;
+use bindings::{WebGL2RenderingContext, WebGLBuffer};
 use glenum_bindgen::{BufferKind, DataHint};
-use graphics::webgl::context::WebGLContext;
-use stdweb::web::TypedArray;
-use stdweb::{Reference, __js_raw_asm, _js_impl, js};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct Buffer {
-    context: WebGLContext,
+    context: *const WebGL2RenderingContext,
     kind: BufferKind,
-    reference: Reference,
+    buffer: WebGLBuffer,
 }
 
 #[wasm_bindgen]
 impl Buffer {
-    pub fn new(context: &WebGLContext, kind: BufferKind) -> Buffer {
-        let context = context.clone();
-        let value = js! { return (@{&context.get_reference()}).createBuffer(); };
+    pub fn new(context: &WebGL2RenderingContext, kind: BufferKind) -> Buffer {
+        let buffer = context.create_buffer();
 
         Buffer {
             context,
             kind,
-            reference: value.into_reference().expect("error: create_buffer"),
+            buffer,
         }
     }
 
-    pub fn load_data(&self, data: &[u8], draw_mode: DataHint) {
-        js! {
-            (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},@{&self.reference});
-            (@{self.context.get_reference()}).bufferData(@{self.kind as u32},@{TypedArray::from(data)}, @{draw_mode as u32});
-            (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},null);
-        };
+    pub fn load_data(&self, data: Vec<u8>, draw_mode: DataHint) {
+        unsafe {
+            let context_ref: &WebGL2RenderingContext = &*self.context;
+            context_ref.bind_buffer(self.kind, &self.buffer);
+            context_ref.buffer_data(self.kind, data, draw_mode, 0, 0);
+        }
+
+        //TODO maybe find a way to bind_buffer to null to unbind
     }
 
     pub fn bind(&self) {
-        js! { (@{self.context.get_reference()}).bindBuffer(@{self.kind as u32},@{&self.reference}) };
+        unsafe {
+            let context_ref: &WebGL2RenderingContext = &*self.context;
+            context_ref.bind_buffer(self.kind, &self.buffer);
+        }
     }
 }
