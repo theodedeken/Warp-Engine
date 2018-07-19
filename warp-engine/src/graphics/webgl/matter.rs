@@ -1,22 +1,23 @@
 use super::buffer::Buffer;
 use glenum_bindgen::{BufferKind, DataHint};
+use log::log;
 use util::IntoBytes;
 use wasm_bindgen::prelude::*;
 use webgl2_bindgen::WebGL2RenderingContext;
 
 #[wasm_bindgen]
 pub struct Matter {
-    context: *const WebGL2RenderingContext,
+    context: WebGL2RenderingContext,
     vertex_buffer: Buffer,
     index_buffer: Buffer,
 }
 
 #[wasm_bindgen]
 impl Matter {
-    pub fn new(context: &WebGL2RenderingContext, vertices: Vec<f32>, indices: Vec<u16>) -> Matter {
-        let vertex_buffer = Buffer::new(context, BufferKind::Array);
+    pub fn new(context: WebGL2RenderingContext, vertices: Vec<f32>, indices: Vec<u16>) -> Matter {
+        let vertex_buffer = Buffer::new(context.clone(), BufferKind::Array);
         vertex_buffer.load_data(vertices.into_bytes(), DataHint::StaticDraw);
-        let index_buffer = Buffer::new(context, BufferKind::ElementArray);
+        let index_buffer = Buffer::new(context.clone(), BufferKind::ElementArray);
         index_buffer.load_data(indices.into_bytes(), DataHint::StaticDraw);
         Matter {
             context,

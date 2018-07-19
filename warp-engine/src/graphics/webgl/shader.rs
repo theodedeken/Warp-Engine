@@ -12,7 +12,6 @@ pub struct Shader {
 #[wasm_bindgen]
 impl Shader {
     pub fn new(context: WebGL2RenderingContext, code: &str, kind: ShaderKind) -> Shader {
-        //let context = context.copy();
         let shader = context.create_shader(kind);
         context.shader_source(&shader, code);
         context.compile_shader(&shader);

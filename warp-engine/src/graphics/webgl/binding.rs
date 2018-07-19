@@ -1,32 +1,41 @@
-use super::{context::WebGLContext, matter::Matter, program::Program};
-use stdweb::{Reference, __js_raw_asm, _js_impl, js};
+use super::{matter::Matter, program::Program};
+use glenum_bindgen::{AttributeSize, AttributeType};
+use log::log;
 use wasm_bindgen::prelude::*;
+use webgl2_bindgen::{WebGL2RenderingContext, WebGLVertexArrayObject};
 
 #[wasm_bindgen]
 pub struct Binding {
-    context: WebGLContext,
-    attrib_pointer: Reference,
+    context: WebGL2RenderingContext,
+    vao: WebGLVertexArrayObject,
 }
 
 #[wasm_bindgen]
 impl Binding {
     pub fn new(
-        context: &WebGLContext,
-        program: Program,
-        matter: Matter,
+        context: WebGL2RenderingContext,
+        program: &Program,
+        matter: &Matter,
         attribute: &str,
     ) -> Binding {
-        //program.use();
         matter.bind();
-        let context = context.clone();
-        let value = js! {
-            let loc = (@{context.get_reference()}).getAttribLocation(@{program.get_reference()},@{attribute})
-            return (@{context.get_reference()}).vertexAttribPointer(loc, 3, gl.FLOAT, false, 0, 0);
-        };
+        let attrib_loc = program.get_location(attribute);
+        let vao = context.create_vertex_array();
+        context.bind_vertex_array(&vao);
+        context.enable_vertex_attrib_array(attrib_loc);
+        // FIXME attributesize, stride depending on matter
+        context.vertex_attrib_pointer(
+            attrib_loc,
+            AttributeSize::Three,
+            AttributeType::Float,
+            false,
+            0,
+            0,
+        );
+        Binding { context, vao }
+    }
 
-        Binding {
-            context,
-            attrib_pointer: value.into_reference().expect("error: create_binding"),
-        }
+    pub fn enable(&self) {
+        self.context.bind_vertex_array(&self.vao);
     }
 }

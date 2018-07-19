@@ -20,26 +20,53 @@ function main(module) {
     /*================ Shaders ====================*/
 
     // Vertex shader source code
-    let vert_code = "attribute vec3 coordinates;void main(void){gl_Position = vec4(coordinates, 1.0);}";
+    let vert_code = `#version 300 es
+ 
+    // an attribute is an input (in) to a vertex shader.
+    // It will receive data from a buffer
+    in vec4 a_position;
+     
+    // all shaders have a main function
+    void main() {
+     
+      // gl_Position is a special variable a vertex shader
+      // is responsible for setting
+      gl_Position = a_position;
+    }
+    `;
 
-    let vert_shader = module.Shader.new(context, vert_code, ShaderKind.Vertex);
+    let vert_shader = module.Shader.new(context, vert_code, module.ShaderKind.Vertex);
 
     //fragment shader source code
-    let frag_code = "void main(void){gl_FragColor = vec4(1, 0.5, 0.0, 1);}";
+    let frag_code = `#version 300 es
+ 
+    // fragment shaders don't have a default precision so we need
+    // to pick one. mediump is a good default. It means "medium precision"
+    precision mediump float;
+     
+    // we need to declare an output for the fragment shader
+    out vec4 outColor;
+     
+    void main() {
+      // Just set the output to a constant redish-purple
+      outColor = vec4(1, 0, 0.5, 1);
+    }
+    `;
     // Create fragment shader object
-    let frag_shader = module.Shader.new(context, frag_code, ShaderKind.Fragment);
+    let frag_shader = module.Shader.new(context, frag_code, module.ShaderKind.Fragment);
 
     let shader_program = module.Program.new(context, vert_shader, frag_shader);
 
     // Use the combined shader program object
-    shader_program.use();
+    shader_program.enable();
     //gl.use_program(& shader_program);
 
     /*======= Associating shaders to buffer objects =======*/
     //matter.bind()
-    let binding = Binding.new(context, program, matter, "coordinates");
-    matter.bind()
-    binding.enable()
+
+    let matterbind = module.Binding.new(context, shader_program, matter, "a_position")
+
+    matterbind.enable()
     //program.bind("coordinates", matter)
     // Bind vertex buffer object
     //gl.bind_buffer(BufferKind:: Array, & vertex_buffer);
@@ -61,25 +88,23 @@ function main(module) {
     /*=========Drawing the triangle===========*/
 
     // Clear the canvas
-    context.clear_color(0.5, 0.5, 0.5, 0.9);
+    context.clearColor(0.5, 0.5, 0.5, 0.9);
 
     // Enable the depth test
-    context.enable(Flag.DepthTest);
+    context.enable(module.Flag.DepthTest);
 
     // Clear the color buffer bit
-    context.clear(BufferBit.Color);
-    context.clear(BufferBit.Depth);
+    context.clear(module.BufferBit.Color);
+    context.clear(module.BufferBit.Depth);
 
     // Set the view port
     context.viewport(0, 0, size[0], size[1])
-
-    while (true) {
-        context.clear(BufferBit.Color);
-        context.clear(BufferBit.Depth);
-        context.clear_color(1.0, 1.0, 1.0, 1.0);
-        context.draw_elements(Primitives.Triangles, count, DataType.U16, 0);
-    }
-
+    setTimeout(() => {
+        context.clear(module.BufferBit.Color);
+        context.clear(module.BufferBit.Depth);
+        context.clearColor(1.0, 1.0, 1.0, 1.0);
+        context.drawElements(module.Primitives.Triangles, count, module.DataType.U16, 0);
+    }, 50)
 }
 
 

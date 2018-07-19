@@ -67,6 +67,7 @@ impl WebGL2RenderingContext {
 extern "C" {
     /// The WebGL2RenderingContext interface provides the OpenGL ES 3.0 rendering context
     /// for the drawing surface of an HTML <canvas> element.
+    #[derive(Clone)]
     pub type WebGL2RenderingContext;
 
     /// The `WebGLRenderingContext.canvas` property is a read-only reference to the `HTMLCanvasElement`
@@ -716,7 +717,7 @@ extern "C" {
 
     /// The `WebGLRenderingContext.useProgram()` method of the WebGL API sets the specified WebGLProgram as part of the current rendering state.
     #[wasm_bindgen(method, js_name = useProgram)]
-    pub fn use_program(this: &WebGL2RenderingContext, program: WebGLProgram);
+    pub fn use_program(this: &WebGL2RenderingContext, program: &WebGLProgram);
 
     /// The `WebGLRenderingContext.validateProgram()` method of the WebGL API validates a WebGLProgram.
     /// It checks if it is successfully linked and if it can be used in the current WebGL state.
@@ -758,9 +759,9 @@ extern "C" {
     #[wasm_bindgen(method, js_name = getAttribLocation)]
     pub fn get_attrib_location(
         this: &WebGL2RenderingContext,
-        program: WebGLProgram,
+        program: &WebGLProgram,
         name: &str,
-    ) -> i32;
+    ) -> u32;
 
     /// The `WebGLRenderingContext.getUniform()` method of the WebGL API returns the value of a uniform variable
     /// at a given location.
@@ -1776,7 +1777,7 @@ extern "C" {
     /// The `WebGL2RenderingContext.bindVertexArray()` method of the WebGL 2 API binds a passed WebGLVertexArrayObject
     /// object to the buffer.
     #[wasm_bindgen(method, js_name = bindVertexArray)]
-    pub fn bind_vertex_array(this: &WebGL2RenderingContext, vertex_array: WebGLVertexArrayObject);
+    pub fn bind_vertex_array(this: &WebGL2RenderingContext, vertex_array: &WebGLVertexArrayObject);
 }
 
 /// WebGLContextAttributes

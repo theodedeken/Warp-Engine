@@ -7,5 +7,6 @@ extern crate wasm_bindgen;
 extern crate webgl2_bindgen;
 
 pub mod graphics;
+pub mod log;
 pub mod math;
 pub mod util;

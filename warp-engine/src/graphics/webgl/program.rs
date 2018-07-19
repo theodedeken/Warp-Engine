@@ -28,4 +28,12 @@ impl Program {
             fragment_shader,
         }
     }
+
+    pub fn enable(&self) {
+        self.context.use_program(&self.program);
+    }
+
+    pub fn get_location(&self, attribute: &str) -> u32 {
+        self.context.get_attrib_location(&self.program, attribute)
+    }
 }
