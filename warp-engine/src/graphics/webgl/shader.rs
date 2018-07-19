@@ -1,6 +1,6 @@
-use bindings::{WebGL2RenderingContext, WebGLShader};
 use glenum_bindgen::ShaderKind;
 use wasm_bindgen::prelude::*;
+use webgl2_bindgen::{WebGL2RenderingContext, WebGLShader};
 
 #[wasm_bindgen]
 pub struct Shader {

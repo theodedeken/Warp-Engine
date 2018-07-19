@@ -1,8 +1,8 @@
 use super::buffer::Buffer;
-use bindings::WebGL2RenderingContext;
 use glenum_bindgen::{BufferKind, DataHint};
 use util::IntoBytes;
 use wasm_bindgen::prelude::*;
+use webgl2_bindgen::WebGL2RenderingContext;
 
 #[wasm_bindgen]
 pub struct Matter {
@@ -18,7 +18,6 @@ impl Matter {
         vertex_buffer.load_data(vertices.into_bytes(), DataHint::StaticDraw);
         let index_buffer = Buffer::new(context, BufferKind::ElementArray);
         index_buffer.load_data(indices.into_bytes(), DataHint::StaticDraw);
-        //let pointer: *const WebGL2RenderingContext = &context;
         Matter {
             context,
             vertex_buffer,

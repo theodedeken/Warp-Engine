@@ -1,7 +1,6 @@
-use super::context;
-use bindings::{WebGL2RenderingContext, WebGLBuffer};
 use glenum_bindgen::{BufferKind, DataHint};
 use wasm_bindgen::prelude::*;
+use webgl2_bindgen::{WebGL2RenderingContext, WebGLBuffer};
 
 #[wasm_bindgen]
 pub struct Buffer {
@@ -26,7 +25,7 @@ impl Buffer {
         unsafe {
             let context_ref: &WebGL2RenderingContext = &*self.context;
             context_ref.bind_buffer(self.kind, &self.buffer);
-            context_ref.buffer_data(self.kind, data, draw_mode, 0, 0);
+            context_ref.buffer_data(self.kind, data, draw_mode);
         }
 
         //TODO maybe find a way to bind_buffer to null to unbind
