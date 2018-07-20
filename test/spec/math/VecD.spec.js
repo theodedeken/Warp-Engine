@@ -1,25 +1,21 @@
-//import test from 'ava';
-//import { VecD } from '../../../wasm/warp_engine';
-
 function floatTest(t, input, expected, decimal) {
     var val = Math.round(input * Math.pow(10, decimal)) / Math.pow(10, decimal)
     t.is(val, expected)
 }
 
-describe('The VecD object', () => {
-    var blocked = true;
-    var warp = import('../../../wasm/warp_engine')
-    beforeAll(() => {
-        warp.then(module => {
-            warp = module;
-            blocked = false;
-        });
-        while (blocked) {
 
-        }
+describe('The VecD object', () => {
+    var warpPromise = import('../../../wasm/warp_engine')
+    var warp;
+    var blocked = true
+    beforeAll(() => {
+        return warpPromise.then(module => warp = module);
     })
 
     it('can be constructed', () => {
+        while (warp == undefined) {
+
+        }
         var vector1 = warp.VecD.new([1, 2, 3]);
         expect(vector1).toBeDefined()
         var vector2 = warp.VecD.with_size(3);
