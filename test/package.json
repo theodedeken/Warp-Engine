@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Unit tests and other tests for the Warp Engine",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "travis": "./node_modules/.bin/karma start --single-run --browsers firefox"
   },
   "ava": {
     "files": [
@@ -30,6 +31,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.2",
     "karma-mocha-reporter": "^2.2.5",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-requirejs": "^1.1.0",
     "karma-webpack": "^3.0.0",
     "requirejs": "^2.3.5",
