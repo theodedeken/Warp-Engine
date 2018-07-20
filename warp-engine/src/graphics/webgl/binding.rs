@@ -18,11 +18,11 @@ impl Binding {
         matter: &Matter,
         attribute: &str,
     ) -> Binding {
-        matter.bind();
         let attrib_loc = program.get_location(attribute);
         let vao = context.create_vertex_array();
         context.bind_vertex_array(&vao);
         context.enable_vertex_attrib_array(attrib_loc);
+        matter.bind();
         // FIXME attributesize, stride depending on matter
         context.vertex_attrib_pointer(
             attrib_loc,
