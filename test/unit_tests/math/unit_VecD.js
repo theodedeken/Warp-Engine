@@ -1,12 +1,32 @@
-import test from 'ava';
-const warp = require('../../wasm/warp_engine');
-const VecD = warp.VecD;
+//import test from 'ava';
+//import { VecD } from '../../../wasm/warp_engine';
 
 function floatTest(t, input, expected, decimal) {
     var val = Math.round(input * Math.pow(10, decimal)) / Math.pow(10, decimal)
     t.is(val, expected)
 }
 
+describe('The VecD object', () => {
+    var blocked = true;
+    var warp = import('../../../wasm/warp_engine')
+    beforeAll(() => {
+        warp.then(module => {
+            warp = module;
+            blocked = false;
+        });
+        while (blocked) {
+
+        }
+    })
+
+    it('can be constructed', () => {
+        var vector1 = warp.VecD.new([1, 2, 3]);
+        expect(vector1).toBeDefined()
+        var vector2 = warp.VecD.with_size(3);
+        expect(vector2).toBeDefined();
+    })
+})
+/*
 test('constructor', t => {
     var vector1 = VecD.new([1, 2, 3]);
     t.not(vector1, null);
@@ -157,4 +177,4 @@ test('exceptions with dot', t => {
     var vector2 = VecD.with_size(3)
     t.throws(() => vector1.dot(vector2))
     t.throws(() => vector2.dot(vector1))
-})
+})*/
