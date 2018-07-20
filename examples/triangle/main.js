@@ -102,8 +102,9 @@ function main(module) {
     setTimeout(() => {
         context.clear(module.BufferBit.Color);
         context.clear(module.BufferBit.Depth);
-        context.clearColor(1.0, 1.0, 1.0, 1.0);
-        context.drawElements(module.Primitives.Triangles, count, module.DataType.U16, 0);
+        context.clearColor(0.5, 0.5, 0.5, 1.0);
+        //context.drawElements(module.Primitives.Triangles, count, module.DataType.U16, 0);
+        context.drawArrays(module.Primitives.Triangles, 0, count);
     }, 50)
 }
 

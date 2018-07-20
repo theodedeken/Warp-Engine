@@ -24,7 +24,6 @@ impl Buffer {
         let length = data.len();
         self.context.bind_buffer(self.kind, &self.buffer);
         self.context.buffer_data(self.kind, data, draw_mode);
-        log(&format!("loaded {} bytes", length));
 
         //TODO maybe find a way to bind_buffer to null to unbind
     }
