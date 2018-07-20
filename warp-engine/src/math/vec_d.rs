@@ -23,13 +23,15 @@ impl VecD {
     /// # Arguments
     /// * `size` - The size of the vector.
     pub fn with_size(size: usize) -> VecD {
-        VecD {
-            values: Vec::with_capacity(size),
+        let mut values = Vec::with_capacity(size);
+        for _ in 0..size {
+            values.push(0.0);
         }
+        VecD { values }
     }
 
     /// Returns the length of the vector.
-    pub extern "C" fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.values.len()
     }
 
@@ -55,9 +57,16 @@ impl VecD {
     /// # Arguments
     /// * `other` - The vector to be added to this vector.        
     pub fn add(&self, other: &VecD) -> VecD {
+        if (self.len() != other.len()) {
+            panic!(
+                "Vectors should have the same dimension! {} != {}",
+                self.len(),
+                other.len()
+            );
+        }
         let mut result: Vec<f64> = Vec::with_capacity(self.len());
         for i in 0..self.len() {
-            result[i] = self.values[i] + other.get(i);
+            result.push(self.values[i] + other.get(i));
         }
         VecD::new(result)
     }
@@ -67,9 +76,16 @@ impl VecD {
     /// # Arguments
     /// * `other` - The vector to be added to this vector.   
     pub fn sub(&self, other: &VecD) -> VecD {
+        if (self.len() != other.len()) {
+            panic!(
+                "Vectors should have the same dimension! {} != {}",
+                self.len(),
+                other.len()
+            );
+        }
         let mut result: Vec<f64> = Vec::with_capacity(self.len());
         for i in 0..self.len() {
-            result[i] = self.values[i] - other.get(i);
+            result.push(self.values[i] - other.get(i));
         }
         VecD::new(result)
     }
@@ -81,7 +97,7 @@ impl VecD {
     pub fn mult(&self, a: f64) -> VecD {
         let mut result: Vec<f64> = Vec::with_capacity(self.len());
         for i in 0..self.len() {
-            result[i] = self.values[i] * a;
+            result.push(self.values[i] * a);
         }
         VecD::new(result)
     }
@@ -93,7 +109,7 @@ impl VecD {
     pub fn div(&self, a: f64) -> VecD {
         let mut result: Vec<f64> = Vec::with_capacity(self.len());
         for i in 0..self.len() {
-            result[i] = self.values[i] / a;
+            result.push(self.values[i] / a);
         }
         VecD::new(result)
     }
@@ -103,6 +119,13 @@ impl VecD {
     /// # Arguments
     /// * `other` - The second vector in the dot product.
     pub fn dot(&self, other: &VecD) -> f64 {
+        if (self.len() != other.len()) {
+            panic!(
+                "Vectors should have the same dimension! {} != {}",
+                self.len(),
+                other.len()
+            );
+        }
         let mut result = 0.;
         for i in 0..self.len() {
             result += self.values[i] * other.get(i);

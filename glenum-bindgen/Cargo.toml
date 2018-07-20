@@ -1,0 +1,8 @@
+[package]
+name = "glenum-bindgen"
+version = "0.1.0"
+authors = ["Theo Dedeken <theo.dedeken@telenet.be>"]
+
+[dependencies]
+wasm-bindgen = { git = "https://github.com/rustwasm/wasm-bindgen" }
+#wasm-bindgen = "0.2.11"
