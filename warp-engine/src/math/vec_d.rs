@@ -1,5 +1,5 @@
 //! Mathematical vector and handy methods.
-
+use super::mat_d::MatD;
 use wasm_bindgen::prelude::*;
 
 /// Vector of type `f64`.
@@ -8,6 +8,7 @@ pub struct VecD {
     values: Vec<f64>,
 }
 
+/// Methods that get binded to javascript
 #[wasm_bindgen]
 impl VecD {
     /// Constructs a vector with values.
@@ -28,6 +29,16 @@ impl VecD {
             values.push(0.0);
         }
         VecD { values }
+    }
+
+    /// Constructs a vector from a Matrix
+    ///
+    /// # Arguments
+    /// * `matrix` - The matrix to convert to a vector
+    pub fn from_mat(matrix: MatD) -> VecD {
+        VecD {
+            values: matrix.values(),
+        }
     }
 
     /// Returns the length of the vector.
@@ -131,5 +142,13 @@ impl VecD {
             result += self.values[i] * other.get(i);
         }
         result
+    }
+}
+
+/// Methods that don't get binded to javascript
+impl VecD {
+    /// Return the value array of the vector
+    pub fn values(self) -> Vec<f64> {
+        self.values
     }
 }

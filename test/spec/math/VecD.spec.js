@@ -1,11 +1,13 @@
 describe('VecD', () => {
     var warp;
     var VecD;
+    var MatD;
 
     beforeAll(() => {
         return import('../../../wasm/warp_engine').then(module => {
             warp = module;
             VecD = warp.VecD;
+            MatD = warp.MatD;
         });
     })
 
@@ -154,5 +156,14 @@ describe('VecD', () => {
         var dot2 = vector2.dot(vector1)
         expect(dot1).toBeCloseTo(26.844, 3)
         expect(dot1).toBe(dot2)
+    })
+
+    it('can be converted to a matrix', () => {
+        var vector = VecD.new([0, 1, 2, 3])
+        var res = MatD.from_vec(2, 2, vector);
+        expect(res.get(0, 0)).toBe(0)
+        expect(res.get(0, 1)).toBe(1)
+        expect(res.get(1, 0)).toBe(2)
+        expect(res.get(1, 1)).toBe(3)
     })
 })
