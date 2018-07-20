@@ -1,34 +1,38 @@
-describe('A VecD', () => {
+describe('VecD', () => {
     var warp;
+    var VecD;
 
     beforeAll(() => {
-        return import('../../../wasm/warp_engine').then(module => warp = module);
+        return import('../../../wasm/warp_engine').then(module => {
+            warp = module;
+            VecD = warp.VecD;
+        });
     })
 
     it('can be constructed', () => {
-        var vector1 = warp.VecD.new([1, 2, 3]);
+        var vector1 = VecD.new([1, 2, 3]);
         expect(vector1).toBeDefined();
-        var vector2 = warp.VecD.with_size(3);
+        var vector2 = VecD.with_size(3);
         expect(vector2).toBeDefined();
     })
 
     it('throws exceptions when provided with negative size', () => {
-        expect(() => warp.VecD.with_size(-1)).toThrow();
+        expect(() => VecD.with_size(-1)).toThrow();
     })
 
     it('returns the correct size', () => {
-        var vector = warp.VecD.with_size(1);
+        var vector = VecD.with_size(1);
         expect(vector.len()).toBe(1);
-        vector = warp.VecD.with_size(0);
+        vector = VecD.with_size(0);
         expect(vector.len()).toBe(0);
-        vector = warp.VecD.with_size(123);
+        vector = VecD.with_size(123);
         expect(vector.len()).toBe(123);
-        vector = warp.VecD.new(new Float64Array([1.3, 5.2, 6.3]));
+        vector = VecD.new(new Float64Array([1.3, 5.2, 6.3]));
         expect(vector.len()).toBe(3);
     })
 
     it('has getters and setters for its elements', () => {
-        var vector = warp.VecD.with_size(3);
+        var vector = VecD.with_size(3);
         expect(vector.get(0)).toBe(0);
         vector.set(1, 1.5);
         expect(vector.get(1)).toBe(1.5);
@@ -36,21 +40,21 @@ describe('A VecD', () => {
         expect(vector.get(0)).toBe(0);
         expect(vector.get(1)).toBe(1.5);
         expect(vector.get(2)).toBe(-5.635);
-        var vector2 = warp.VecD.new([0, 12, 5]);
+        var vector2 = VecD.new([0, 12, 5]);
         expect(vector2.get(0)).toBe(0);
         expect(vector2.get(1)).toBe(12);
         expect(vector2.get(2)).toBe(5);
     })
 
     it('throws exceptions when accessing elements out of bounds', () => {
-        var vector = warp.VecD.with_size(3)
+        var vector = VecD.with_size(3)
         expect(() => vector.set(3, 8)).toThrow()
         expect(() => vector.get(-5)).toThrow()
     })
 
     it('can be added to another VecD', () => {
-        var vector1 = warp.VecD.with_size(3)
-        var vector2 = warp.VecD.with_size(3)
+        var vector1 = VecD.with_size(3)
+        var vector2 = VecD.with_size(3)
         vector1.set(0, -1.5)
         vector1.set(1, 3.14)
         vector2.set(0, 10)
@@ -66,8 +70,8 @@ describe('A VecD', () => {
     })
 
     it('throws exceptions when dimensions of adding/dot or subtracting dont correspond', () => {
-        var vector1 = warp.VecD.with_size(2)
-        var vector2 = warp.VecD.with_size(3)
+        var vector1 = VecD.with_size(2)
+        var vector2 = VecD.with_size(3)
         expect(() => vector1.add(vector2)).toThrow()
         expect(() => vector2.add(vector1)).toThrow()
 
@@ -79,8 +83,8 @@ describe('A VecD', () => {
     })
 
     it('can be subtracted by another VecD', () => {
-        var vector1 = warp.VecD.with_size(3)
-        var vector2 = warp.VecD.with_size(3)
+        var vector1 = VecD.with_size(3)
+        var vector2 = VecD.with_size(3)
         vector1.set(0, -1.5)
         vector1.set(1, 3.14)
         vector2.set(0, 10)
@@ -96,7 +100,7 @@ describe('A VecD', () => {
     })
 
     it('can be multiplied by a value', () => {
-        var vector = warp.VecD.with_size(3)
+        var vector = VecD.with_size(3)
         vector.set(0, 6.9)
         vector.set(1, 5)
         vector.set(2, 3.14)
@@ -119,7 +123,7 @@ describe('A VecD', () => {
     })
 
     it('can be divided by a value', () => {
-        var vector = warp.VecD.with_size(3)
+        var vector = VecD.with_size(3)
         vector.set(0, 3.14)
         vector.set(1, 10)
         vector.set(2, -4.3)
@@ -138,8 +142,8 @@ describe('A VecD', () => {
     })
 
     it('can calculate dot product', () => {
-        var vector1 = warp.VecD.with_size(3)
-        var vector2 = warp.VecD.with_size(3)
+        var vector1 = VecD.with_size(3)
+        var vector2 = VecD.with_size(3)
         vector1.set(0, 1.1)
         vector1.set(1, 2.2)
         vector1.set(2, 3.14)
