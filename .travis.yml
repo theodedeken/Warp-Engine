@@ -15,4 +15,4 @@ before_script:
 script: ./travis.sh
 
 addons:
-  firefox: 'latest'
+  chrome: stable
