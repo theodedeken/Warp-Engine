@@ -1,5 +1,10 @@
-language: rust
+language: 
+  - rust
+  - node_js
 rust: nightly
 node_js:
   - 0.8
+before_script: 
+  - rustup target add wasm32-unknown-unknown
+  - cargo install --git https://github.com/rustwasm/wasm-bindgen wasm-bindgen-cli
 script: ./travis.sh
