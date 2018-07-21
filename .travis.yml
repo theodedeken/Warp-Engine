@@ -1,4 +1,5 @@
 language: rust
+rust: nightly
 node_js:
   - 0.8
-script: travis.sh
+script: ./travis.sh
