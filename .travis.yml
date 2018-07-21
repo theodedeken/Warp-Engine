@@ -16,6 +16,8 @@ before_script:
   - rustup target add wasm32-unknown-unknown
   - cargo install --force --git https://github.com/rustwasm/wasm-bindgen wasm-bindgen-cli
 script: ./travis.sh
-
+branches:
+  only:
+  - master
 addons:
   chrome: stable
