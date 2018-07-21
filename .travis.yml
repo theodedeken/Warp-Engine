@@ -4,6 +4,8 @@ language:
 rust: nightly
 node_js:
   - 0.8
+addons:
+  firefox: latest
 before_script: 
   - mkdir wasm
   - rustup target add wasm32-unknown-unknown
