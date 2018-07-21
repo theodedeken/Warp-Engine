@@ -1,3 +1,4 @@
+sudo: required
 language: 
   - rust
   - node_js
@@ -9,6 +10,8 @@ cache:
   directories:
   - node_modules
 before_script: 
+  - sudo chown root /opt/google/chrome/chrome-sandbox
+  - sudo chmod 4755 /opt/google/chrome/chrome-sandbox
   - mkdir wasm
   - rustup target add wasm32-unknown-unknown
   - cargo install --force --git https://github.com/rustwasm/wasm-bindgen wasm-bindgen-cli
