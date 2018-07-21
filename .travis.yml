@@ -11,7 +11,7 @@ cache:
 before_script: 
   - mkdir wasm
   - rustup target add wasm32-unknown-unknown
-  - cargo install --git https://github.com/rustwasm/wasm-bindgen wasm-bindgen-cli
+  - cargo install --force --git https://github.com/rustwasm/wasm-bindgen wasm-bindgen-cli
 script: ./travis.sh
 
 addons:
