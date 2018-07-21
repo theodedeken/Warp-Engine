@@ -4,7 +4,7 @@
   "description": "Unit tests and other tests for the Warp Engine",
   "scripts": {
     "test": "karma start",
-    "travis": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "travis": "./node_modules/.bin/karma start --single-run --browsers firefox"
   },
   "ava": {
     "files": [
