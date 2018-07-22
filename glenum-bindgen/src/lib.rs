@@ -10,7 +10,6 @@
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::*;
 
 /// Constants passed to WebGLRenderingContext.vertexAttribPointer()
 #[wasm_bindgen]

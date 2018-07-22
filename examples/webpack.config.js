@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: "./triangle/main.js",
+    entry: "./drive.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",
