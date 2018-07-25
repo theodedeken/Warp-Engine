@@ -1,7 +1,7 @@
-use glenum_bindgen::{BufferKind, DataHint};
 use log::log;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLBuffer};
+use webgl_rs::{BufferKind, DataHint};
+use webgl_rs::{WebGL2RenderingContext, WebGLBuffer};
 
 pub struct Buffer {
     context: WebGL2RenderingContext,
