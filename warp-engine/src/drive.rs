@@ -15,4 +15,7 @@ extern "C" {
     //TEMP arg, just for testing
     #[wasm_bindgen(method)]
     pub fn spin(this: &Drive, arg: VecD);
+
+    #[wasm_bindgen]
+    pub fn eval(code: String);
 }

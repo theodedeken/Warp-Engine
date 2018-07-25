@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: "./drive.js",
+    entry: "./eval.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",
