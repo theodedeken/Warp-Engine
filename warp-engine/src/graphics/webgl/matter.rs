@@ -1,9 +1,9 @@
 use super::buffer::Buffer;
-use glenum_bindgen::{BufferKind, DataHint};
 use log::log;
 use util::IntoBytes;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::WebGL2RenderingContext;
+use webgl_rs::WebGL2RenderingContext;
+use webgl_rs::{BufferKind, DataHint};
 
 #[wasm_bindgen]
 pub struct Matter {

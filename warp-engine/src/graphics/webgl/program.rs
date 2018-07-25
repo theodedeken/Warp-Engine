@@ -1,6 +1,6 @@
 use graphics::webgl::shader::Shader;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLProgram};
+use webgl_rs::{WebGL2RenderingContext, WebGLProgram};
 
 #[wasm_bindgen]
 pub struct Program {

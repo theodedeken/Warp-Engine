@@ -1,8 +1,8 @@
 use super::{matter::Matter, program::Program};
-use glenum_bindgen::{AttributeSize, AttributeType};
 use log::log;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLVertexArrayObject};
+use webgl_rs::{AttributeSize, AttributeType};
+use webgl_rs::{WebGL2RenderingContext, WebGLVertexArrayObject};
 
 #[wasm_bindgen]
 pub struct Binding {
