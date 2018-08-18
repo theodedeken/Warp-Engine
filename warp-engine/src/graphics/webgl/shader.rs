@@ -1,20 +1,20 @@
 use wasm_bindgen::prelude::*;
 use webgl_rs::ShaderKind;
-use webgl_rs::{WebGL2RenderingContext, WebGLShader};
+use webgl_rs::{WebGL2RenderingContext, WebGLRSShader};
 
-#[wasm_bindgen]
-pub struct Shader {
-    context: WebGL2RenderingContext,
-    shader: WebGLShader,
+//#[wasm_bindgen]
+pub struct Shader<'a> {
+    context: &'a WebGL2RenderingContext,
+    shader: WebGLRSShader<'a>,
     kind: ShaderKind,
 }
 
-#[wasm_bindgen]
-impl Shader {
-    pub fn new(context: WebGL2RenderingContext, code: &str, kind: ShaderKind) -> Shader {
+//#[wasm_bindgen]
+impl<'a> Shader<'a> {
+    pub fn new(context: &'a WebGL2RenderingContext, code: &str, kind: ShaderKind) -> Shader<'a> {
         let shader = context.create_shader(kind);
-        context.shader_source(&shader, code);
-        context.compile_shader(&shader);
+        shader.shader_source(code);
+        shader.compile();
         //TODO log result of compilation
         Shader {
             context,
@@ -22,10 +22,7 @@ impl Shader {
             kind,
         }
     }
-}
-
-impl Shader {
-    pub fn shader(&self) -> &WebGLShader {
+    pub fn shader(&self) -> &WebGLRSShader {
         &self.shader
     }
 }
