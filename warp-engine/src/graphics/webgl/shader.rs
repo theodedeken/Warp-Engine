@@ -13,7 +13,7 @@ pub struct Shader<'a> {
 impl<'a> Shader<'a> {
     pub fn new(context: &'a WebGL2RenderingContext, code: &str, kind: ShaderKind) -> Shader<'a> {
         let shader = context.create_shader(kind);
-        shader.shader_source(code);
+        shader.set_shader_source(code);
         shader.compile();
         //TODO log result of compilation
         Shader {
