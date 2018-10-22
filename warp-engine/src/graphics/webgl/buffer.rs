@@ -1,16 +1,17 @@
-use glenum_bindgen::{BufferKind, DataHint};
 use log::log;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLBuffer};
+use webgl_rs::data_view::Buffer as BufferView;
+use webgl_rs::{BufferKind, DataHint};
+use webgl_rs::{WebGL2RenderingContext, WebGLRSBuffer};
 
-pub struct Buffer {
-    context: WebGL2RenderingContext,
+pub struct Buffer<'a> {
+    context: &'a WebGL2RenderingContext,
     kind: BufferKind,
-    buffer: WebGLBuffer,
+    buffer: WebGLRSBuffer<'a>,
 }
 
-impl Buffer {
-    pub fn new(context: WebGL2RenderingContext, kind: BufferKind) -> Buffer {
+impl<'a> Buffer<'a> {
+    pub fn new(context: &'a WebGL2RenderingContext, kind: BufferKind) -> Buffer<'a> {
         let buffer = context.create_buffer();
 
         Buffer {
@@ -20,15 +21,15 @@ impl Buffer {
         }
     }
 
-    pub fn load_data(&self, data: Vec<u8>, draw_mode: DataHint) {
-        let length = data.len();
-        self.context.bind_buffer(self.kind, &self.buffer);
+    pub fn load_data<B: BufferView>(&self, data: &B, draw_mode: DataHint) {
+        //let length = data.len();
+        self.buffer.bind(self.kind);
         self.context.buffer_data(self.kind, data, draw_mode);
 
         //TODO maybe find a way to bind_buffer to null to unbind
     }
 
     pub fn bind(&self) {
-        self.context.bind_buffer(self.kind, &self.buffer);
+        self.buffer.bind(self.kind);
     }
 }

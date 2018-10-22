@@ -1,26 +1,26 @@
 use graphics::webgl::shader::Shader;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLProgram};
+use webgl_rs::{WebGL2RenderingContext, WebGLRSProgram};
 
-#[wasm_bindgen]
-pub struct Program {
-    context: WebGL2RenderingContext,
-    program: WebGLProgram,
-    vertex_shader: Shader,
-    fragment_shader: Shader,
+//#[wasm_bindgen]
+pub struct Program<'a> {
+    context: &'a WebGL2RenderingContext,
+    program: WebGLRSProgram<'a>,
+    vertex_shader: Shader<'a>,
+    fragment_shader: Shader<'a>,
 }
 
-#[wasm_bindgen]
-impl Program {
+//#[wasm_bindgen]
+impl<'a> Program<'a> {
     pub fn new(
-        context: WebGL2RenderingContext,
-        vertex_shader: Shader,
-        fragment_shader: Shader,
-    ) -> Program {
+        context: &'a WebGL2RenderingContext,
+        vertex_shader: Shader<'a>,
+        fragment_shader: Shader<'a>,
+    ) -> Program<'a> {
         let program = context.create_program();
-        context.attach_shader(&program, vertex_shader.shader());
-        context.attach_shader(&program, fragment_shader.shader());
-        context.link_program(&program);
+        program.attach_shader(vertex_shader.shader());
+        program.attach_shader(fragment_shader.shader());
+        program.link();
         Program {
             context,
             program,
@@ -30,10 +30,10 @@ impl Program {
     }
 
     pub fn enable(&self) {
-        self.context.use_program(&self.program);
+        self.program.enable();
     }
 
     pub fn get_location(&self, attribute: &str) -> u32 {
-        self.context.get_attrib_location(&self.program, attribute)
+        self.program.attrib_location(attribute)
     }
 }

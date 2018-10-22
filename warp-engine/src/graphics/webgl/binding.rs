@@ -1,26 +1,26 @@
 use super::{matter::Matter, program::Program};
-use glenum_bindgen::{AttributeSize, AttributeType};
 use log::log;
 use wasm_bindgen::prelude::*;
-use webgl2_bindgen::{WebGL2RenderingContext, WebGLVertexArrayObject};
+use webgl_rs::{AttributeSize, AttributeType};
+use webgl_rs::{WebGL2RenderingContext, WebGLRSVertexArrayObject};
 
-#[wasm_bindgen]
-pub struct Binding {
-    context: WebGL2RenderingContext,
-    vao: WebGLVertexArrayObject,
+//#[wasm_bindgen]
+pub struct Binding<'a> {
+    context: &'a WebGL2RenderingContext,
+    vao: WebGLRSVertexArrayObject<'a>,
 }
 
-#[wasm_bindgen]
-impl Binding {
+//#[wasm_bindgen]
+impl<'a> Binding<'a> {
     pub fn new(
-        context: WebGL2RenderingContext,
+        context: &'a WebGL2RenderingContext,
         program: &Program,
         matter: &Matter,
         attribute: &str,
-    ) -> Binding {
+    ) -> Binding<'a> {
         let attrib_loc = program.get_location(attribute);
         let vao = context.create_vertex_array();
-        context.bind_vertex_array(&vao);
+        vao.bind();
         context.enable_vertex_attrib_array(attrib_loc);
         matter.bind();
         // FIXME attributesize, stride depending on matter
@@ -36,6 +36,6 @@ impl Binding {
     }
 
     pub fn enable(&self) {
-        self.context.bind_vertex_array(&self.vao);
+        self.vao.bind();
     }
 }
