@@ -4,6 +4,7 @@ use webgl_rs::data_view::Buffer as BufferView;
 use webgl_rs::{BufferKind, DataHint};
 use webgl_rs::{WebGL2RenderingContext, WebGLRSBuffer};
 
+#[derive(Clone)]
 pub struct Buffer<'a> {
     context: &'a WebGL2RenderingContext,
     kind: BufferKind,

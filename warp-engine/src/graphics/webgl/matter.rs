@@ -6,6 +6,7 @@ use webgl_rs::WebGL2RenderingContext;
 use webgl_rs::{BufferKind, DataHint};
 
 //#[wasm_bindgen]
+#[derive(Clone)]
 pub struct Matter<'a> {
     context: &'a WebGL2RenderingContext,
     vertex_buffer: Buffer<'a>,
