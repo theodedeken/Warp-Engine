@@ -1,7 +1,7 @@
 use rhai::{Engine, RegisterFn};
 
 pub struct RhaiEngine {
-    engine: Engine,
+    pub engine: Engine,
 }
 
 impl RhaiEngine {
@@ -12,29 +12,43 @@ impl RhaiEngine {
     }
 }
 
-/*
-    let context = document.getElementById("triangle").getContext("webgl2");
-    let matter = module.Matter.new(context, vertices, indices);
-    let vert_shader = module.Shader.new(context, vert_code, module.ShaderKind.Vertex);
-    let frag_shader = module.Shader.new(context, frag_code, module.ShaderKind.Fragment);
-    let shader_program = module.Program.new(context, vert_shader, frag_shader);
-    shader_program.enable();
-    let matterbind = module.Binding.new(context, shader_program, matter, "a_position")
-    matterbind.enable()
-    context.enable(module.Flag.DepthTest);
-    context.clearColor(0.5, 0.5, 0.5, 1.0);
-    context.viewport(0, 0, size[0], size[1])
-    context.clear(module.BufferBit.Color);
-    context.clear(module.BufferBit.Depth);
-    context.drawElements(module.Primitives.Triangles, count, module.DataType.U16, 0);
-*/
-
 // TODO do this in a more maintainable way
-use graphics::webgl::matter::Matter;
+use graphics::webgl::{
+    binding::Binding, context::Context, matter::Matter, program::Program, shader::Shader,
+};
+use webgl_rs::rendering_context::WebGL2RenderingContext;
 
 impl RhaiEngine {
     pub fn init(&mut self) {
+        // Context methods
+        self.engine.register_type::<Context>();
+        self.engine.register_fn("create_context", Context::new);
+        self.engine.register_fn("enable", Context::enable);
+        self.engine.register_fn("clear_color", Context::clear_color);
+        self.engine.register_fn("viewport", Context::viewport);
+        self.engine.register_fn("clear", Context::clear);
+        self.engine
+            .register_fn("draw_elements", Context::draw_elements);
+
         // Matter methods
         self.engine.register_type::<Matter>();
+        self.engine.register_fn("create_matter", Matter::new);
+
+        // Context methods
+        self.engine.register_type::<WebGL2RenderingContext>();
+
+        // Shader methods
+        self.engine.register_type::<Shader>();
+        self.engine.register_fn("create_shader", Shader::new);
+
+        // Program methods
+        self.engine.register_type::<Program>();
+        self.engine.register_fn("create_program", Program::new);
+        self.engine.register_fn("enable", Program::enable);
+
+        // Binding methods
+        self.engine.register_type::<Binding>();
+        self.engine.register_fn("create_binding", Binding::new);
+        self.engine.register_fn("enable", Binding::enable);
     }
 }

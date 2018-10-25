@@ -1,3 +1,4 @@
+use super::context::Context;
 use log::log;
 use wasm_bindgen::prelude::*;
 use webgl_rs::data_view::Buffer as BufferView;
@@ -12,7 +13,8 @@ pub struct Buffer<'a> {
 }
 
 impl<'a> Buffer<'a> {
-    pub fn new(context: &'a WebGL2RenderingContext, kind: BufferKind) -> Buffer<'a> {
+    pub fn new(context: &'a Context, kind: BufferKind) -> Buffer<'a> {
+        let context = &context.wgl_context;
         let buffer = context.create_buffer();
 
         Buffer {

@@ -1,8 +1,10 @@
+use super::context::Context;
 use graphics::webgl::shader::Shader;
 use wasm_bindgen::prelude::*;
 use webgl_rs::{WebGL2RenderingContext, WebGLRSProgram};
 
 //#[wasm_bindgen]
+#[derive(Clone)]
 pub struct Program<'a> {
     context: &'a WebGL2RenderingContext,
     program: WebGLRSProgram<'a>,
@@ -13,10 +15,11 @@ pub struct Program<'a> {
 //#[wasm_bindgen]
 impl<'a> Program<'a> {
     pub fn new(
-        context: &'a WebGL2RenderingContext,
+        context: &'a Context,
         vertex_shader: Shader<'a>,
         fragment_shader: Shader<'a>,
     ) -> Program<'a> {
+        let context = &context.wgl_context;
         let program = context.create_program();
         program.attach_shader(vertex_shader.shader());
         program.attach_shader(fragment_shader.shader());
@@ -29,7 +32,7 @@ impl<'a> Program<'a> {
         }
     }
 
-    pub fn enable(&self) {
+    pub fn enable(&mut self) {
         self.program.enable();
     }
 

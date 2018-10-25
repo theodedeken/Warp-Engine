@@ -1,4 +1,5 @@
 use super::buffer::Buffer;
+use super::context::Context;
 use log::log;
 use util::IntoBytes;
 use wasm_bindgen::prelude::*;
@@ -15,17 +16,13 @@ pub struct Matter<'a> {
 
 //#[wasm_bindgen]
 impl<'a> Matter<'a> {
-    pub fn new(
-        context: &'a WebGL2RenderingContext,
-        vertices: &Vec<f32>,
-        indices: &Vec<u16>,
-    ) -> Matter<'a> {
+    pub fn new(context: &'a Context, vertices: &Vec<f32>, indices: &Vec<u16>) -> Matter<'a> {
         let vertex_buffer = Buffer::new(context, BufferKind::Array);
         vertex_buffer.load_data(vertices, DataHint::StaticDraw);
         let index_buffer = Buffer::new(context, BufferKind::ElementArray);
         index_buffer.load_data(indices, DataHint::StaticDraw);
         Matter {
-            context,
+            context: &context.wgl_context,
             vertex_buffer,
             index_buffer,
         }

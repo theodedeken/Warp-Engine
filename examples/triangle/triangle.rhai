@@ -1,16 +1,3 @@
-extern crate rhai;
-extern crate wasm_bindgen;
-extern crate webgl_rs;
-
-pub mod drive;
-pub mod graphics;
-pub mod log;
-pub mod math;
-pub mod scripting;
-pub mod util;
-
-//TEMP script
-static SCRIPT: &str = r##"
 let size = [800, 600];
 
 let vertices = [-0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.5, -0.5, 0.0];
@@ -61,38 +48,3 @@ context.clear(module.BufferBit.Color);
 context.clear(module.BufferBit.Depth);
 
 context.drawElements(module.Primitives.Triangles, count, module.DataType.U16, 0);
-"##;
-
-use wasm_bindgen::prelude::*;
-#[wasm_bindgen]
-pub fn startup(filename: &str) {
-    let mut engine = scripting::engine::RhaiEngine::new();
-    engine.init();
-    let result = engine.engine.eval::<bool>(SCRIPT);
-    match result {
-        Ok(status) => {
-            if status {
-                log::log("script succeeded");
-            } else {
-                log::log("script failed");
-            }
-        }
-        Err(error) => {
-            log::log(&format!("script errored: {}", error));
-        }
-    }
-    /*
-    let result = engine.engine.eval_file::<bool>(filename);
-    match result {
-        Ok(status) => {
-            if status {
-                log::log("script succeeded");
-            } else {
-                log::log("script failed");
-            }
-        }
-        Err(error) => {
-            log::log(&format!("script errored: {}", error));
-        }
-    }*/
-}
