@@ -4,6 +4,7 @@ const warp = import('../../wasm/warp_engine');
 //import { booted } from "../../wasm/warp_engine_bg";
 
 function main(module) {
+  module.set_context(document.getElementById('triangle').getContext('webgl2'));
   module.startup('./triangle/triangle.rhai');
 
   /*let size = [800, 600];

@@ -16,10 +16,14 @@ impl RhaiEngine {
 use graphics::webgl::{
     binding::Binding, context::Context, matter::Matter, program::Program, shader::Shader,
 };
+use webgl_rs::glenum::Flag;
 use webgl_rs::rendering_context::WebGL2RenderingContext;
 
 impl RhaiEngine {
     pub fn init(&mut self) {
+        // Enums
+        self.engine.register_type::<Flag>();
+
         // Context methods
         self.engine.register_type::<Context>();
         self.engine.register_fn("create_context", Context::new);
@@ -50,5 +54,8 @@ impl RhaiEngine {
         self.engine.register_type::<Binding>();
         self.engine.register_fn("create_binding", Binding::new);
         self.engine.register_fn("enable", Binding::enable);
+
+        // Get context
+        self.engine.register_fn("get_context", crate::get_context);
     }
 }
