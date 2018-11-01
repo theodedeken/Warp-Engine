@@ -21,7 +21,7 @@ let count = 3;
 let context = get_context();
 
 let matter = create_matter(context, vertices, indices);
-
+true; /*
 /*================ Shaders ====================*/
 
 // Vertex shader source code
@@ -61,6 +61,7 @@ context.clear(module.BufferBit.Color);
 context.clear(module.BufferBit.Depth);
 
 context.draw_elements(module.Primitives.Triangles, count, module.DataType.U16, 0);
+*/
 "##;
 
 use graphics::webgl::context::Context;
